@@ -21,6 +21,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
      * Creates new form DangNhapJDialog
      */
     EduSysJFrame mainFrame;
+
     public DangNhapJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -203,22 +204,22 @@ public class DangNhapJDialog extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     NhanVienDAO dao = new NhanVienDAO();
-    
+
     void init() {
         setLocationRelativeTo(null);
     }
-    
-    void dangNhap(){
+
+    void dangNhap() {
         String maNV = txtMaNV.getText();
         char[] matKhau = txtMatKhau.getPassword();
         NhanVien nv = dao.selectById(maNV);
-        if(maNV.length() == 0){
+        if (maNV.length() == 0) {
             MsgBox.alert(this, "Chưa nhập tên đăng nhập!");
-        } else if(matKhau.length == 0){
+        } else if (matKhau.length == 0) {
             MsgBox.alert(this, "Chưa nhập mật khẩu!");
-        } else if(nv == null){
+        } else if (nv == null) {
             MsgBox.alert(this, "Sai tên đăng nhập!");
-        } else if(!nv.getMatKhau().equals(new String(matKhau))) {
+        } else if (!nv.getMatKhau().equals(new String(matKhau))) {
             MsgBox.alert(this, "Sai mật khẩu!");
         } else {
             Auth.user = nv;
@@ -226,9 +227,9 @@ public class DangNhapJDialog extends javax.swing.JDialog {
             this.dispose();
         }
     }
-    
-    void ketThuc(){
-        if(MsgBox.confirm(this, "Bạn có muốn thoát chương trình?")){
+
+    void ketThuc() {
+        if (MsgBox.confirm(this, "Bạn có muốn thoát chương trình?")) {
             System.exit(0);
         }
     }

@@ -9,7 +9,6 @@ import com.edusys.dao.NhanVienDAO;
 import com.edusys.entity.NhanVien;
 import com.edusys.utils.Auth;
 import com.edusys.utils.MsgBox;
-import javax.swing.JFrame;
 
 /**
  *

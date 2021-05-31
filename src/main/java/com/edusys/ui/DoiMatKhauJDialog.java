@@ -5,6 +5,10 @@
  */
 package com.edusys.ui;
 
+import com.edusys.dao.NhanVienDAO;
+import com.edusys.utils.Auth;
+import com.edusys.utils.MsgBox;
+
 /**
  *
  * @author MinIT
@@ -17,6 +21,7 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
     public DoiMatKhauJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        init();
     }
 
     /**
@@ -33,11 +38,11 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
         lblMaNV = new javax.swing.JLabel();
         lblMatKhau = new javax.swing.JLabel();
         txtMaNV = new javax.swing.JTextField();
-        txtMatKhau = new javax.swing.JTextField();
-        lblMatKhau1 = new javax.swing.JLabel();
-        lblMatKhau2 = new javax.swing.JLabel();
-        txtMatKhau1 = new javax.swing.JTextField();
-        txtMatKhau2 = new javax.swing.JTextField();
+        txtMatKhau = new javax.swing.JPasswordField();
+        lblMatKhauMoi = new javax.swing.JLabel();
+        lblMatKhauMoi2 = new javax.swing.JLabel();
+        txtMatKhauMoi = new javax.swing.JPasswordField();
+        txtMatKhauMoi2 = new javax.swing.JPasswordField();
         btnDongY = new javax.swing.JButton();
         btnHuy = new javax.swing.JButton();
 
@@ -58,19 +63,29 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
         pnlForm.add(txtMaNV);
         pnlForm.add(txtMatKhau);
 
-        lblMatKhau1.setText("Mật khẩu mới");
-        pnlForm.add(lblMatKhau1);
+        lblMatKhauMoi.setText("Mật khẩu mới");
+        pnlForm.add(lblMatKhauMoi);
 
-        lblMatKhau2.setText("Xác nhận mật khẩu mới");
-        pnlForm.add(lblMatKhau2);
-        pnlForm.add(txtMatKhau1);
-        pnlForm.add(txtMatKhau2);
+        lblMatKhauMoi2.setText("Xác nhận mật khẩu mới");
+        pnlForm.add(lblMatKhauMoi2);
+        pnlForm.add(txtMatKhauMoi);
+        pnlForm.add(txtMatKhauMoi2);
 
         btnDongY.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/edusys/icon/Refresh.png"))); // NOI18N
         btnDongY.setText("Đồng ý");
+        btnDongY.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDongYActionPerformed(evt);
+            }
+        });
 
         btnHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/edusys/icon/No.png"))); // NOI18N
         btnHuy.setText("Hủy bỏ");
+        btnHuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHuyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -106,6 +121,16 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnDongYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongYActionPerformed
+        // TODO add your handling code here:
+        doiMatKhau();
+    }//GEN-LAST:event_btnDongYActionPerformed
+
+    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
+        // TODO add your handling code here:
+        huyBo();
+    }//GEN-LAST:event_btnHuyActionPerformed
 
     /**
      * @param args the command line arguments
@@ -154,13 +179,50 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
     private javax.swing.JButton btnHuy;
     private javax.swing.JLabel lblMaNV;
     private javax.swing.JLabel lblMatKhau;
-    private javax.swing.JLabel lblMatKhau1;
-    private javax.swing.JLabel lblMatKhau2;
+    private javax.swing.JLabel lblMatKhauMoi;
+    private javax.swing.JLabel lblMatKhauMoi2;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel pnlForm;
     private javax.swing.JTextField txtMaNV;
-    private javax.swing.JTextField txtMatKhau;
-    private javax.swing.JTextField txtMatKhau1;
-    private javax.swing.JTextField txtMatKhau2;
+    private javax.swing.JPasswordField txtMatKhau;
+    private javax.swing.JPasswordField txtMatKhauMoi;
+    private javax.swing.JPasswordField txtMatKhauMoi2;
     // End of variables declaration//GEN-END:variables
+
+    private void init() {
+        setLocationRelativeTo(null);
+    }
+
+    NhanVienDAO dao = new NhanVienDAO();
+
+    private void doiMatKhau() {
+        String maNV = txtMaNV.getText();
+        char[] matKhau = txtMatKhau.getPassword();
+        char[] matKhauMoi = txtMatKhauMoi.getPassword();
+        char[] matKhauMoi2 = txtMatKhauMoi2.getPassword();
+
+        if (maNV.length() == 0) {
+            MsgBox.alert(this, "Chưa nhập tên đăng nhập!");
+        } else if (matKhau.length == 0) {
+            MsgBox.alert(this, "Chưa nhập mật khẩu hiện tại!");
+        } else if (matKhauMoi.length == 0) {
+            MsgBox.alert(this, "Chưa nhập mật khẩu mới!");
+        } else if (matKhauMoi2.length == 0) {
+            MsgBox.alert(this, "Chưa nhập xác nhận mật khẩu mới!");
+        } else if (!maNV.equalsIgnoreCase(Auth.user.getMaNV())) {
+            MsgBox.alert(this, "Tên đăng nhập không tồn tại!");
+        } else if (!matKhau.equals(Auth.user.getMatKhau())) {
+            MsgBox.alert(this, "Sai mật khẩu!");
+        } else if (!matKhauMoi.equals(new String(matKhauMoi2))) {
+            MsgBox.alert(this, "Xác nhận mật khẩu không đúng!");
+        } else {
+            Auth.user.setMatKhau(new String(matKhauMoi));
+            dao.update(Auth.user);
+            MsgBox.alert(this, "Đổi mật khẩu thành công!");
+        }
+    }
+
+    private void huyBo() {
+        this.dispose();
+    }
 }

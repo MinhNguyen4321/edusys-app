@@ -68,7 +68,7 @@
         <Component class="javax.swing.JLabel" name="lblLogo">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/polypro/icon/poly.png"/>
+              <Image iconType="3" name="/com/edusys/icon/poly.png"/>
             </Property>
           </Properties>
           <Events>

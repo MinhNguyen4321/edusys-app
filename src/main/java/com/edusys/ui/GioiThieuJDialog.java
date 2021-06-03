@@ -54,7 +54,7 @@ public class GioiThieuJDialog extends javax.swing.JDialog {
 
         pnlLogo.setLayout(new java.awt.GridLayout(1, 0));
 
-        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/polypro/icon/poly.png"))); // NOI18N
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/edusys/icon/poly.png"))); // NOI18N
         lblLogo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblLogoMouseClicked(evt);

@@ -337,31 +337,31 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         fillTableDiemChuyenDe();
         fillTableDoanhThu();
         fillTableNguoiHoc();
-        
+
         this.selectTab(0);
-        if(!Auth.isManager()){
+        if (!Auth.isManager()) {
             tabs.remove(3);
         }
-        
+
         tblBangDiem.getColumnModel().getColumn(0).setMaxWidth(100);
         tblBangDiem.getColumnModel().getColumn(2).setMaxWidth(70);
         tblBangDiem.getColumnModel().getColumn(3).setMaxWidth(120);
-        
+
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setHorizontalAlignment(JLabel.CENTER);
         tblBangDiem.getColumnModel().getColumn(2).setCellRenderer(renderer);
-        
+
         tblNguoiHoc.getColumnModel().getColumn(0).setCellRenderer(renderer);
         tblNguoiHoc.getColumnModel().getColumn(1).setCellRenderer(renderer);
         tblNguoiHoc.getColumnModel().getColumn(2).setCellRenderer(renderer);
         tblNguoiHoc.getColumnModel().getColumn(3).setCellRenderer(renderer);
-        
+
         tblDiemChuyenDe.getColumnModel().getColumn(0).setMinWidth(250);
         tblDiemChuyenDe.getColumnModel().getColumn(4).setCellRenderer(renderer);
         tblDiemChuyenDe.getColumnModel().getColumn(1).setCellRenderer(renderer);
         tblDiemChuyenDe.getColumnModel().getColumn(2).setCellRenderer(renderer);
         tblDiemChuyenDe.getColumnModel().getColumn(3).setCellRenderer(renderer);
-        
+
         tblDoanhThu.getColumnModel().getColumn(0).setMinWidth(250);
         tblDoanhThu.getColumnModel().getColumn(1).setCellRenderer(renderer);
         tblDoanhThu.getColumnModel().getColumn(2).setCellRenderer(renderer);
@@ -419,12 +419,12 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         }
         return "Xuất sắc";
     }
-    
+
     void fillTableDiemChuyenDe() {
         DefaultTableModel model = (DefaultTableModel) tblDiemChuyenDe.getModel();
         model.setRowCount(0);
         List<Object[]> list = tkdao.getDiemChuyenDe();
-        for(Object[] row : list){
+        for (Object[] row : list) {
             model.addRow(new Object[]{
                 row[0],
                 row[1],
@@ -433,22 +433,22 @@ public class ThongKeJDialog extends javax.swing.JDialog {
                 String.format("%.1f", row[4])});
         }
     }
-    
-    void fillTableNguoiHoc(){
+
+    void fillTableNguoiHoc() {
         DefaultTableModel model = (DefaultTableModel) tblNguoiHoc.getModel();
         model.setRowCount(0);
         List<Object[]> list = tkdao.getLuongNguoiHoc();
-        for(Object[] row : list){
+        for (Object[] row : list) {
             model.addRow(row);
         }
     }
-    
+
     void fillTableDoanhThu() {
         DefaultTableModel model = (DefaultTableModel) tblDoanhThu.getModel();
         model.setRowCount(0);
-        int nam = (Integer)cboNam.getSelectedItem();
+        int nam = (Integer) cboNam.getSelectedItem();
         List<Object[]> list = tkdao.getDoanhThu(nam);
-        for(Object[] row : list){
+        for (Object[] row : list) {
             model.addRow(row);
         }
     }

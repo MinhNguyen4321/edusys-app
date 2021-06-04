@@ -9,6 +9,7 @@ import com.edusys.dao.NhanVienDAO;
 import com.edusys.entity.NhanVien;
 import com.edusys.utils.Auth;
 import com.edusys.utils.MsgBox;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -251,7 +252,6 @@ public class NhanVienJDialog extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        tblNhanVien.setColumnSelectionAllowed(true);
         tblNhanVien.setRowHeight(25);
         tblNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -259,7 +259,6 @@ public class NhanVienJDialog extends javax.swing.JDialog {
             }
         });
         jScrollPane1.setViewportView(tblNhanVien);
-        tblNhanVien.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         javax.swing.GroupLayout pnlListLayout = new javax.swing.GroupLayout(pnlList);
         pnlList.setLayout(pnlListLayout);
@@ -429,12 +428,13 @@ public class NhanVienJDialog extends javax.swing.JDialog {
     private javax.swing.JPasswordField txtMatKhau2;
     // End of variables declaration//GEN-END:variables
 
-    NhanVienDAO dao = new NhanVienDAO();
+    private NhanVienDAO dao;
     int row = -1; // Hàng được chọn hiện tại trên bảng
 
     void init() {
         setLocationRelativeTo(null);
 
+        this.dao = new NhanVienDAO();
         this.fillTable();
         this.updateStatus();
     }
@@ -581,11 +581,27 @@ public class NhanVienJDialog extends javax.swing.JDialog {
         btnNext.setEnabled(edit && !last);
         btnLast.setEnabled(edit && !last);
     }
+    
+    boolean isExistId(String maNV){
+        List<NhanVien> list = dao.selectAll();
+        for(NhanVien nv : list){
+            if(maNV.equalsIgnoreCase(nv.getMaNV())){
+                return true;
+            }
+        }
+        return false;
+    }
 
     boolean isValidated() {
         NhanVien nv = this.getForm();
         if (nv.getMaNV().length() == 0) {
             MsgBox.alert(this, "Mã nhân viên không được để trống!");
+        } else if (isExistId(nv.getMaNV())) {
+            MsgBox.alert(this, "Mã nhân viên đã tồn tại!");
+        } else if (nv.getMatKhau().length() == 0) {
+            MsgBox.alert(this, "Mật khẩu không được để trống!");
+        } else if (txtMatKhau2.getPassword().length == 0) {
+            MsgBox.alert(this, "Mật khẩu xác nhận không được để trống!");
         } else if (nv.getHoTen().length() == 0) {
             MsgBox.alert(this, "Họ và tên nhân viên không được để trống!");
         } else if (!nv.getMatKhau().equals(new String(txtMatKhau2.getPassword()))) {

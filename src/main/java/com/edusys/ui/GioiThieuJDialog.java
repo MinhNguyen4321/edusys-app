@@ -38,6 +38,7 @@ public class GioiThieuJDialog extends javax.swing.JDialog {
         setAlwaysOnTop(true);
         setUndecorated(true);
 
+        pnlGioiThieu.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 1, new java.awt.Color(0, 0, 0)));
         pnlGioiThieu.setLayout(new java.awt.BorderLayout());
 
         txtGioiThieu.setEditable(false);
@@ -52,6 +53,7 @@ public class GioiThieuJDialog extends javax.swing.JDialog {
 
         getContentPane().add(pnlGioiThieu, java.awt.BorderLayout.CENTER);
 
+        pnlLogo.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 0, 1, new java.awt.Color(0, 0, 0)));
         pnlLogo.setLayout(new java.awt.GridLayout(1, 0));
 
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/edusys/icon/poly.png"))); // NOI18N

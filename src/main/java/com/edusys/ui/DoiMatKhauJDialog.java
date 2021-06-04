@@ -196,33 +196,42 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
     NhanVienDAO dao = new NhanVienDAO();
 
     private void doiMatKhau() {
-        String maNV = txtMaNV.getText();
-        char[] matKhau = txtMatKhau.getPassword();
-        char[] matKhauMoi = txtMatKhauMoi.getPassword();
-        char[] matKhauMoi2 = txtMatKhauMoi2.getPassword();
+        if (isValidated()) {
+            String maNV = txtMaNV.getText();
+            String matKhau = new String(txtMatKhau.getPassword());
+            String matKhauMoi = new String(txtMatKhauMoi.getPassword());
+            String matKhauMoi2 = new String(txtMatKhauMoi.getPassword());
 
-        if (maNV.length() == 0) {
-            MsgBox.alert(this, "Chưa nhập tên đăng nhập!");
-        } else if (matKhau.length == 0) {
-            MsgBox.alert(this, "Chưa nhập mật khẩu hiện tại!");
-        } else if (matKhauMoi.length == 0) {
-            MsgBox.alert(this, "Chưa nhập mật khẩu mới!");
-        } else if (matKhauMoi2.length == 0) {
-            MsgBox.alert(this, "Chưa nhập xác nhận mật khẩu mới!");
-        } else if (!maNV.equalsIgnoreCase(Auth.user.getMaNV())) {
-            MsgBox.alert(this, "Tên đăng nhập không tồn tại!");
-        } else if (!matKhau.equals(Auth.user.getMatKhau())) {
-            MsgBox.alert(this, "Sai mật khẩu!");
-        } else if (!matKhauMoi.equals(new String(matKhauMoi2))) {
-            MsgBox.alert(this, "Xác nhận mật khẩu không đúng!");
-        } else {
-            Auth.user.setMatKhau(new String(matKhauMoi));
-            dao.update(Auth.user);
-            MsgBox.alert(this, "Đổi mật khẩu thành công!");
+            if (!maNV.equalsIgnoreCase(Auth.user.getMaNV())) {
+                MsgBox.alert(this, "Tên đăng nhập không tồn tại!");
+            } else if (!matKhau.equalsIgnoreCase(Auth.user.getMatKhau())) {
+                MsgBox.alert(this, "Sai mật khẩu!");
+            } else if (!matKhauMoi.equalsIgnoreCase(matKhauMoi2)) {
+                MsgBox.alert(this, "Xác nhận mật khẩu không đúng!");
+            } else {
+                Auth.user.setMatKhau(matKhauMoi);
+                dao.update(Auth.user);
+                MsgBox.alert(this, "Đổi mật khẩu thành công!");
+            }
         }
     }
 
     private void huyBo() {
         this.dispose();
+    }
+
+    private boolean isValidated() {
+        if (txtMaNV.getText().length() == 0) {
+            MsgBox.alert(this, "Chưa nhập tên đăng nhập!");
+        } else if (txtMatKhau.getPassword().length == 0) {
+            MsgBox.alert(this, "Chưa nhập mật khẩu hiện tại!");
+        } else if (txtMatKhauMoi.getPassword().length == 0) {
+            MsgBox.alert(this, "Chưa nhập mật khẩu mới!");
+        } else if (txtMatKhauMoi2.getPassword().length == 0) {
+            MsgBox.alert(this, "Vui lòng xác nhận mật khẩu mới!");
+        } else {
+            return true;
+        }
+        return false;
     }
 }

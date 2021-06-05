@@ -121,6 +121,7 @@ public class KhoaHocJDialog extends javax.swing.JDialog {
         txtHocPhi.setOpaque(false);
         pnlForm.add(txtHocPhi);
 
+        txtMaNV.setEditable(false);
         txtMaNV.setOpaque(false);
         pnlForm.add(txtMaNV);
 

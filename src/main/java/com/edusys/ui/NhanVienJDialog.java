@@ -581,22 +581,12 @@ public class NhanVienJDialog extends javax.swing.JDialog {
         btnNext.setEnabled(edit && !last);
         btnLast.setEnabled(edit && !last);
     }
-    
-    boolean isExistId(String maNV){
-        List<NhanVien> list = dao.selectAll();
-        for(NhanVien nv : list){
-            if(maNV.equalsIgnoreCase(nv.getMaNV())){
-                return true;
-            }
-        }
-        return false;
-    }
 
     boolean isValidated() {
         NhanVien nv = this.getForm();
         if (nv.getMaNV().length() == 0) {
             MsgBox.alert(this, "Mã nhân viên không được để trống!");
-        } else if (isExistId(nv.getMaNV())) {
+        } else if (dao.selectById(nv.getMaNV()) != null) {
             MsgBox.alert(this, "Mã nhân viên đã tồn tại!");
         } else if (nv.getMatKhau().length() == 0) {
             MsgBox.alert(this, "Mật khẩu không được để trống!");

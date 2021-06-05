@@ -517,33 +517,6 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
         }
     }
 
-    boolean isValidated() {
-        if (txtMaCD.getText().length() == 0) {
-            MsgBox.alert(this, "Mã chuyên đề không được để trống!");
-        } else if (txtTenCD.getText().length() == 0) {
-            MsgBox.alert(this, "Tên chuyên đề không được để trống!");
-        } else if (txtThoiLuong.getText().length() == 0) {
-            MsgBox.alert(this, "Thời lượng không được để trống!");
-        } else if (txtHocPhi.getText().length() == 0) {
-            MsgBox.alert(this, "Học phí không được để trống!");
-        } else if (lblHinh.getToolTipText().length() == 0) {
-            MsgBox.alert(this, "Chưa thêm ảnh chuyên đề!");
-        } else {
-            try {
-                int thoiLuong = Integer.parseInt(txtThoiLuong.getText());
-                Double hocPhi = Double.parseDouble(txtHocPhi.getText());
-                if(thoiLuong < 0 || hocPhi < 0){
-                    throw new NumberFormatException();
-                }
-            } catch (NumberFormatException e) {
-                MsgBox.alert(this, "Thời lượng (giờ) và học phí phải là số không âm!");
-                return false;
-            }
-            return true;
-        }
-        return false;
-    }
-
     void fillTable() {
         DefaultTableModel model = (DefaultTableModel) tblChuyenDe.getModel();
         model.setRowCount(0);
@@ -660,6 +633,33 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
         this.setForm(cd);
         tabs.setSelectedIndex(0);
         this.updateStatus();
+    }
+    
+    boolean isValidated() {
+        if (txtMaCD.getText().length() == 0) {
+            MsgBox.alert(this, "Mã chuyên đề không được để trống!");
+        } else if (txtTenCD.getText().length() == 0) {
+            MsgBox.alert(this, "Tên chuyên đề không được để trống!");
+        } else if (txtThoiLuong.getText().length() == 0) {
+            MsgBox.alert(this, "Thời lượng không được để trống!");
+        } else if (txtHocPhi.getText().length() == 0) {
+            MsgBox.alert(this, "Học phí không được để trống!");
+        } else if (lblHinh.getToolTipText().length() == 0) {
+            MsgBox.alert(this, "Chưa thêm ảnh chuyên đề!");
+        } else {
+            try {
+                int thoiLuong = Integer.parseInt(txtThoiLuong.getText());
+                Double hocPhi = Double.parseDouble(txtHocPhi.getText());
+                if(thoiLuong < 0 || hocPhi < 0){
+                    throw new NumberFormatException();
+                }
+            } catch (NumberFormatException e) {
+                MsgBox.alert(this, "Thời lượng (giờ) và học phí phải là số nguyên không âm!");
+                return false;
+            }
+            return true;
+        }
+        return false;
     }
 
 }

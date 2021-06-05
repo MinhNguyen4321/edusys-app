@@ -491,9 +491,9 @@ public class KhoaHocJDialog extends javax.swing.JDialog {
                     kh.getMaKH(),
                     kh.getThoiLuong(),
                     kh.getHocPhi(),
-                    XDate.toString(kh.getNgayKG(), "MM/dd/yyyy"),
+                    XDate.toString(kh.getNgayKG(), "dd-MM-yyyy"),
                     kh.getMaNV(),
-                    XDate.toString(kh.getNgayTao(), "MM/dd/yyyy")
+                    XDate.toString(kh.getNgayTao(), "dd-MM-yyyy")
                 });
             }
         } catch (Exception e) {
@@ -540,12 +540,12 @@ public class KhoaHocJDialog extends javax.swing.JDialog {
         KhoaHoc kh = new KhoaHoc();
 
         kh.setMaCD(chuyenDe.getMaCD());
-        kh.setNgayKG(XDate.toDate(txtNgayKG.getText(), "MM/dd/yyyy"));
+        kh.setNgayKG(XDate.toDate(txtNgayKG.getText(), "dd-MM-yyyy"));
         kh.setHocPhi(Double.valueOf(txtHocPhi.getText()));
         kh.setThoiLuong(Integer.valueOf(txtThoiLuong.getText()));
         kh.setGhiChu(txtGhiChu.getText());
         kh.setMaNV(Auth.user.getMaNV());
-        kh.setNgayTao(XDate.toDate(txtNgayTao.getText(), "MM/dd/yyyy"));
+        kh.setNgayTao(XDate.toDate(txtNgayTao.getText(), "dd-MM-yyyy"));
         kh.setMaKH(Integer.valueOf(cboChuyenDe.getToolTipText()));
 
         return kh;
@@ -554,11 +554,11 @@ public class KhoaHocJDialog extends javax.swing.JDialog {
     void setForm(KhoaHoc kh) {
         cboChuyenDe.setToolTipText(String.valueOf(kh.getMaKH()));
         cboChuyenDe.setSelectedItem(cddao.selectById(kh.getMaCD()));
-        txtNgayKG.setText(XDate.toString(kh.getNgayKG(), "MM/dd/yyyy"));
+        txtNgayKG.setText(XDate.toString(kh.getNgayKG(), "dd-MM-yyyy"));
         txtHocPhi.setText(String.valueOf(kh.getHocPhi()));
         txtThoiLuong.setText(String.valueOf(kh.getThoiLuong()));
         txtMaNV.setText(kh.getMaNV());
-        txtNgayTao.setText(XDate.toString(kh.getNgayTao(), "MM/dd/yyyy"));
+        txtNgayTao.setText(XDate.toString(kh.getNgayTao(), "dd-MM-yyyy"));
         txtGhiChu.setText(kh.getGhiChu());
     }
 
@@ -659,8 +659,8 @@ public class KhoaHocJDialog extends javax.swing.JDialog {
     boolean isValidated(){
         if(txtNgayKG.getText().length() == 0){
             MsgBox.alert(this, "Chưa nhập ngày khai giảng khoá học!");
-        } else if(!GenericValidator.isDate(txtNgayKG.getText(), "MM/dd/yyyy", true)) {
-            MsgBox.alert(this, "Ngày khai giảng không hợp lệ (mm/dd/yyyy)!");
+        } else if(!GenericValidator.isDate(txtNgayKG.getText(), "dd-MM-yyyy", true)) {
+            MsgBox.alert(this, "Ngày khai giảng không hợp lệ (dd-MM-yyyy)!");
         } else {
             return true;
         }

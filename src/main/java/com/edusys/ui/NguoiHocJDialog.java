@@ -599,11 +599,11 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
                     nh.getMaNH(),
                     nh.getHoTen(),
                     nh.isGioiTinh() ? "Nam" : "Nữ",
-                    XDate.toString(nh.getNgaySinh(), "MM/dd/yyyy"),
+                    XDate.toString(nh.getNgaySinh(), "dd-MM-yyyy"),
                     nh.getDienThoai(),
                     nh.getEmail(),
                     nh.getMaNV(),
-                    XDate.toString(nh.getNgayDK(), "MM/dd/yyyy")
+                    XDate.toString(nh.getNgayDK(), "dd-MM-yyyy")
                 });
             }
         } catch (Exception e) {
@@ -619,7 +619,7 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
         } else {
             rdoNu.setSelected(true);
         }
-        txtNgaySinh.setText(XDate.toString(nh.getNgaySinh(), "MM/dd/yyyy"));
+        txtNgaySinh.setText(XDate.toString(nh.getNgaySinh(), "dd-MM-yyyy"));
         txtDienThoai.setText(nh.getDienThoai());
         txtEmail.setText(nh.getEmail());
         txtGhiChu.setText(nh.getGhiChu());
@@ -630,7 +630,7 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
         nh.setMaNH(txtMaNH.getText());
         nh.setHoTen(txtHoTen.getText());
         nh.setGioiTinh(rdoNam.isSelected());
-        nh.setNgaySinh(XDate.toDate(txtNgaySinh.getText(), "MM/dd/yyyy"));
+        nh.setNgaySinh(XDate.toDate(txtNgaySinh.getText(), "dd-MM-yyyy"));
         nh.setDienThoai(txtDienThoai.getText());
         nh.setEmail(txtEmail.getText());
         nh.setGhiChu(txtGhiChu.getText());
@@ -681,8 +681,8 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
             MsgBox.alert(this, "Họ và tên không được để trống!");
         } else if (txtNgaySinh.getText().length() == 0) {
             MsgBox.alert(this, "Ngày sinh không được để trống!");
-        } else if (!GenericValidator.isDate(txtNgaySinh.getText(), "MM/dd/yyyy", true)) {
-            MsgBox.alert(this, "Ngày sinh không hợp lệ (mm/dd/yyyy)!");
+        } else if (!GenericValidator.isDate(txtNgaySinh.getText(), "dd-MM-yyyy", true)) {
+            MsgBox.alert(this, "Ngày sinh không hợp lệ (dd-MM-yyyy)!");
         } else if (txtDienThoai.getText().length() == 0) {
             MsgBox.alert(this, "Điện thoại không được để trống!");
         } else if (txtEmail.getText().length() == 0) {

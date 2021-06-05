@@ -636,9 +636,10 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
     }
     
     boolean isValidated() {
-        if (txtMaCD.getText().length() == 0) {
+        String maCD = txtMaCD.getText();
+        if (maCD.length() == 0) {
             MsgBox.alert(this, "Mã chuyên đề không được để trống!");
-        } else if (txtTenCD.getText().length() == 0) {
+        } else if (dao.selectById(maCD) != null) {
             MsgBox.alert(this, "Tên chuyên đề không được để trống!");
         } else if (txtThoiLuong.getText().length() == 0) {
             MsgBox.alert(this, "Thời lượng không được để trống!");

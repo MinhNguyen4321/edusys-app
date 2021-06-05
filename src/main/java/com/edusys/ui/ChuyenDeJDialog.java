@@ -326,7 +326,7 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(lblTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabs)
+                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -640,6 +640,8 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
         if (maCD.length() == 0) {
             MsgBox.alert(this, "Mã chuyên đề không được để trống!");
         } else if (dao.selectById(maCD) != null) {
+            MsgBox.alert(this, "Mã chuyên đề đã tồn tại!");
+        } else if (txtTenCD.getText().length() == 0) {
             MsgBox.alert(this, "Tên chuyên đề không được để trống!");
         } else if (txtThoiLuong.getText().length() == 0) {
             MsgBox.alert(this, "Thời lượng không được để trống!");

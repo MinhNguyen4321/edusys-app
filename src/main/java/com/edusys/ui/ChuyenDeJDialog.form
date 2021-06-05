@@ -50,7 +50,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="tabs" max="32767" attributes="0"/>
+              <Component id="tabs" min="-2" pref="422" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>

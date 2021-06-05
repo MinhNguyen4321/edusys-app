@@ -675,19 +675,26 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
     }
 
     boolean isValidated() {
-        if (txtMaNH.getText().length() == 0) {
+        String maNH = txtMaNH.getText();
+        String email = txtEmail.getText();
+        String dienThoai = txtDienThoai.getText();
+        if (maNH.length() == 0) {
             MsgBox.alert(this, "Mã người học không được để trống!");
+        } else if (dao.selectById(maNH) != null) {
+            MsgBox.alert(this, "Mã người học đã tồn tại!");
         } else if (txtHoTen.getText().length() == 0) {
             MsgBox.alert(this, "Họ và tên không được để trống!");
         } else if (txtNgaySinh.getText().length() == 0) {
             MsgBox.alert(this, "Ngày sinh không được để trống!");
         } else if (!GenericValidator.isDate(txtNgaySinh.getText(), "dd-MM-yyyy", true)) {
             MsgBox.alert(this, "Ngày sinh không hợp lệ (dd-MM-yyyy)!");
-        } else if (txtDienThoai.getText().length() == 0) {
+        } else if (dienThoai.length() == 0) {
             MsgBox.alert(this, "Điện thoại không được để trống!");
-        } else if (txtEmail.getText().length() == 0) {
+        } else if (!GenericValidator.isInt(dienThoai)) {
+            MsgBox.alert(this, "Số điện thoại không hợp lệ!");
+        } else if (email.length() == 0) {
             MsgBox.alert(this, "Email không được bỏ trống!");
-        } else if (!GenericValidator.isEmail(txtEmail.getText())) {
+        } else if (!GenericValidator.isEmail(email)) {
             MsgBox.alert(this, "Email không hợp lệ!");
         } else {
             return true;

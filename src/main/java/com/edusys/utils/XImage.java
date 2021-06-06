@@ -17,14 +17,15 @@ import javax.swing.ImageIcon;
 public class XImage {
 
     public static Image getAppIcon() {
-        return new ImageIcon(getAbsolutePath("icon/fpt.png")).getImage();
+        URL url = XImage.class.getResource("/com/edusys/icon/fpt.png");
+        return new ImageIcon(url).getImage();
     }
 
     public static void save(File src) {
-        File dst = new File(getAbsolutePath("logos"), src.getName());
+        File dst = new File("logos", src.getName());
         // Tạo thư mục logos nếu chưa tồn tại
-        if (!dst.exists()) {
-            dst.mkdirs();
+        if (!dst.getParentFile().exists()) {
+            dst.getParentFile().mkdirs();
         }
         // Copy file vào thư mục logos
         try {
@@ -37,13 +38,7 @@ public class XImage {
     }
 
     public static ImageIcon read(String fileName) {
-        File path = new File(getAbsolutePath("logos"), fileName);
+        File path = new File("logos", fileName);
         return new ImageIcon(path.getAbsolutePath());
     }
-
-    public static String getAbsolutePath(String relativePath) {
-        URL url = XImage.class.getResource("/com/edusys/");
-        return url.getPath() + relativePath;
-    }
-
 }

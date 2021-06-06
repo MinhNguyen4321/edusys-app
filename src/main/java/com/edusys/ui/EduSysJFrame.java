@@ -4,7 +4,8 @@ import com.edusys.utils.Auth;
 import com.edusys.utils.MsgBox;
 import com.edusys.utils.XImage;
 import java.awt.Desktop;
-import java.net.URL;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.Timer;
@@ -644,9 +645,8 @@ public class EduSysJFrame extends javax.swing.JFrame {
 
     void openHuongDan() {
         try {
-            URL url = getClass().getResource("/com/edusys/help/index.html");
-            Desktop.getDesktop().browse(url.toURI());
-        } catch (Exception e) {
+            Desktop.getDesktop().browse(new File("help/index.html").toURI());
+        } catch (IOException e) {
             MsgBox.alert(this, "Không tìm thấy file hướng dẫn!");
         }
     }

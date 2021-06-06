@@ -307,6 +307,8 @@ public class KhoaHocJDialog extends javax.swing.JDialog {
 
         tabs.addTab("DANH SÁCH", pnlList);
 
+        tabs.setSelectedIndex(1);
+
         panel.add(tabs, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -513,7 +515,7 @@ public class KhoaHocJDialog extends javax.swing.JDialog {
         this.fillTable();
         this.updateStatus();
         this.row = -1;
-        tabs.setSelectedIndex(0);
+        tabs.setSelectedIndex(1);
     }
 
     void updateStatus() {

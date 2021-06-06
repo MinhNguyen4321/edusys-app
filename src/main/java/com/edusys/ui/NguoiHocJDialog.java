@@ -345,6 +345,8 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
 
         tabs.addTab("DANH SÁCH", pnlList);
 
+        tabs.setSelectedIndex(1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(

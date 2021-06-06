@@ -121,6 +121,11 @@ public class HocVienJDialog extends javax.swing.JDialog {
         pnlButton.add(btnXoaHV, gridBagConstraints);
 
         btnSuaDiem.setText("Cập nhật điểm");
+        btnSuaDiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaDiemActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.weighty = 0.3;
@@ -242,6 +247,11 @@ public class HocVienJDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         removeHocVien();
     }//GEN-LAST:event_btnXoaHVActionPerformed
+
+    private void btnSuaDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaDiemActionPerformed
+        // TODO add your handling code here:
+        updateDiem();
+    }//GEN-LAST:event_btnSuaDiemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -422,14 +432,36 @@ public class HocVienJDialog extends javax.swing.JDialog {
         }
     }
 
-    void updateDiem(){
-        for(int i = 0; i < tblHocVien.getRowCount(); i++){
-            int maHV = (Integer) tblHocVien.getValueAt(i, 1);
-            double diem = (Double) tblHocVien.getValueAt(i, 4);
-            HocVien hv = hvdao.selectById(maHV);
-            hv.setDiem(diem);
-            hvdao.update(hv);
+    void updateDiem() {
+        if (isValidated()) {
+            for (int i = 0; i < tblHocVien.getRowCount(); i++) {
+                int maHV = (Integer) tblHocVien.getValueAt(i, 1);
+                double diem = (Double) tblHocVien.getValueAt(i, 4);
+                HocVien hv = hvdao.selectById(maHV);
+                hv.setDiem(diem);
+                hvdao.update(hv);
+            }
+            MsgBox.alert(this, "Cập nhật điểm học viên thành công!");
         }
-        MsgBox.alert(this, "Cập nhật điểm học viên thành công!");
+    }
+
+    boolean isValidated() {
+        for (int i = 0; i < tblHocVien.getRowCount(); i++) {
+            try {
+                double diem = (Double) tblHocVien.getValueAt(i, 4);
+                if (diem < 0 || diem > 10) {
+                    throw new NumberFormatException();
+                }
+            } catch (NumberFormatException e) {
+                MsgBox.alert(this, "Nhập điểm không hợp lệ (0 - 10)!");
+                tblHocVien.setRowSelectionInterval(i, i);
+                return false;
+            } catch (NullPointerException e) {
+                MsgBox.alert(this, "Điểm không được để trống!");
+                tblHocVien.setRowSelectionInterval(i, i);
+                return false;
+            }
+        }
+        return true;
     }
 }

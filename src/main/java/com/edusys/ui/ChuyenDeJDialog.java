@@ -566,7 +566,7 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
     }
 
     void delete() {
-        if (Auth.isManager()) {
+        if (!Auth.isManager()) {
             MsgBox.alert(this, "Bạn không có quyền xóa chuyên đề!");
         } else {
             if (MsgBox.confirm(this, "Bạn có muốn xóa chuyên đề này không?")) {

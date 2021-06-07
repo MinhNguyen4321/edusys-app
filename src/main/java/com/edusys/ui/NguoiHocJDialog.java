@@ -692,7 +692,7 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
             MsgBox.alert(this, "Ngày sinh không hợp lệ (dd-MM-yyyy)!");
         } else if (dienThoai.length() == 0) {
             MsgBox.alert(this, "Điện thoại không được để trống!");
-        } else if (!GenericValidator.isInt(dienThoai)) {
+        } else if (!dienThoai.matches("((84)|(0))\\d{9}")) {
             MsgBox.alert(this, "Số điện thoại không hợp lệ!");
         } else if (email.length() == 0) {
             MsgBox.alert(this, "Email không được bỏ trống!");

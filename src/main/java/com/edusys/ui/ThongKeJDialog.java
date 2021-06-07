@@ -336,7 +336,7 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         fillTableBangDiem();
         fillTableDiemChuyenDe();
         fillTableDoanhThu();
-        fillTableNguoiHoc();
+        fillTableLuongNguoiHoc();
 
         this.selectTab(0);
         if (!Auth.isManager()) {
@@ -434,7 +434,7 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         }
     }
 
-    void fillTableNguoiHoc() {
+    void fillTableLuongNguoiHoc() {
         DefaultTableModel model = (DefaultTableModel) tblNguoiHoc.getModel();
         model.setRowCount(0);
         List<Object[]> list = tkdao.getLuongNguoiHoc();

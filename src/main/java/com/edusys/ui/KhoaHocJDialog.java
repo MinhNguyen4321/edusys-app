@@ -17,7 +17,6 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
-import org.apache.commons.validator.GenericValidator;
 
 /**
  *
@@ -660,9 +659,10 @@ public class KhoaHocJDialog extends javax.swing.JDialog {
     }
     
     boolean isValidated(){
-        if(txtNgayKG.getText().length() == 0){
+        String ngayKG = txtNgayKG.getText();
+        if(ngayKG.length() == 0){
             MsgBox.alert(this, "Chưa nhập ngày khai giảng khoá học!");
-        } else if(!GenericValidator.isDate(txtNgayKG.getText(), "dd-MM-yyyy", true)) {
+        } else if(!XDate.isDate(ngayKG, "dd-MM-yyyy")) {
             MsgBox.alert(this, "Ngày khai giảng không hợp lệ (dd-MM-yyyy)!");
         } else {
             return true;

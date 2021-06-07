@@ -13,7 +13,6 @@ import com.edusys.utils.XDate;
 import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import org.apache.commons.validator.GenericValidator;
 
 /**
  *
@@ -677,18 +676,20 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
     }
 
     boolean isValidated() {
+        String hoTen = txtHoTen.getText();
         String maNH = txtMaNH.getText();
         String email = txtEmail.getText();
         String dienThoai = txtDienThoai.getText();
+        String ngaySinh = txtNgaySinh.getText();
         if (maNH.length() == 0) {
             MsgBox.alert(this, "Mã người học không được để trống!");
         } else if (dao.selectById(maNH) != null) {
             MsgBox.alert(this, "Mã người học đã tồn tại!");
-        } else if (txtHoTen.getText().length() == 0) {
+        } else if (hoTen.length() == 0) {
             MsgBox.alert(this, "Họ và tên không được để trống!");
-        } else if (txtNgaySinh.getText().length() == 0) {
+        } else if (ngaySinh.length() == 0) {
             MsgBox.alert(this, "Ngày sinh không được để trống!");
-        } else if (!GenericValidator.isDate(txtNgaySinh.getText(), "dd-MM-yyyy", true)) {
+        } else if (!XDate.isDate(ngaySinh, "dd-MM-yyyy")) {
             MsgBox.alert(this, "Ngày sinh không hợp lệ (dd-MM-yyyy)!");
         } else if (dienThoai.length() == 0) {
             MsgBox.alert(this, "Điện thoại không được để trống!");
@@ -696,7 +697,7 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
             MsgBox.alert(this, "Số điện thoại không hợp lệ!");
         } else if (email.length() == 0) {
             MsgBox.alert(this, "Email không được bỏ trống!");
-        } else if (!GenericValidator.isEmail(email)) {
+        } else if (!email.matches("\\w+@\\w+(\\.\\w+){1,2}")) {
             MsgBox.alert(this, "Email không hợp lệ!");
         } else {
             return true;

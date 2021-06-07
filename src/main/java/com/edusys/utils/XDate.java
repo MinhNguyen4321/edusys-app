@@ -2,6 +2,7 @@ package com.edusys.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -29,5 +30,16 @@ public class XDate {
     public static Date addDays(Date date, long days) {
         date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
         return date;
+    }
+    
+    public static boolean isDate(String dateStr, String pattern){
+        try {
+            formatter.applyPattern(pattern);
+            formatter.setLenient(false);
+            formatter.parse(dateStr);
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
     }
 }

@@ -50,6 +50,7 @@ public class ChaoJDialog extends javax.swing.JDialog {
 
         getContentPane().add(panel, java.awt.BorderLayout.CENTER);
 
+        progressBar.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 1, new java.awt.Color(0, 0, 0)));
         progressBar.setMaximumSize(new java.awt.Dimension(32767, 17));
         progressBar.setMinimumSize(new java.awt.Dimension(10, 17));
         progressBar.setPreferredSize(new java.awt.Dimension(146, 17));

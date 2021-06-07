@@ -565,7 +565,7 @@ public class EduSysJFrame extends javax.swing.JFrame {
     void init() {
         setIconImage(XImage.getAppIcon());
         setLocationRelativeTo(null);
-        setTitle("HỆ THỐNG QUẨN LÝ ĐÀO TẠO");
+        setTitle("HỆ THỐNG QUẢN LÝ ĐÀO TẠO");
         
         new ChaoJDialog(this, true).setVisible(true);
         new DangNhapJDialog(this, true).setVisible(true);

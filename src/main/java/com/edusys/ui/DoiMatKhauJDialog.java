@@ -228,7 +228,7 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
         } else if (txtMatKhauMoi.getPassword().length == 0) {
             MsgBox.alert(this, "Chưa nhập mật khẩu mới!");
         } else if (txtMatKhauMoi2.getPassword().length == 0) {
-            MsgBox.alert(this, "Vui lòng xác nhận mật khẩu mới!");
+            MsgBox.alert(this, "Chưa nhập mật khẩu xác nhận!");
         } else {
             return true;
         }

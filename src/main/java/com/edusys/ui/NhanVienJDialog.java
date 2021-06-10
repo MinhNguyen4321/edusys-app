@@ -585,7 +585,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
         NhanVien nv = this.getForm();
         if (nv.getMaNV().length() == 0) {
             MsgBox.alert(this, "Mã nhân viên không được để trống!");
-        } else if (dao.selectById(nv.getMaNV()) != null) {
+        } else if (dao.selectById(nv.getMaNV()) != null && txtMaNV.isEditable()) {
             MsgBox.alert(this, "Mã nhân viên đã tồn tại!");
         } else if (nv.getMatKhau().length() == 0) {
             MsgBox.alert(this, "Mật khẩu không được để trống!");
@@ -593,7 +593,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
             MsgBox.alert(this, "Mật khẩu xác nhận không được để trống!");
         } else if (nv.getHoTen().length() == 0) {
             MsgBox.alert(this, "Họ và tên nhân viên không được để trống!");
-        } else if (!nv.getMatKhau().equalsIgnoreCase(new String(txtMatKhau2.getPassword()))) {
+        } else if (!nv.getMatKhau().equals(new String(txtMatKhau2.getPassword()))) {
             MsgBox.alert(this, "Xác nhận mật khẩu không đúng!");
         } else {
             return true;

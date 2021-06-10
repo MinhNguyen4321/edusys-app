@@ -7,6 +7,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="title" type="java.lang.String" value="EduSys - Qu&#x1ea3;n l&#xfd; ng&#x1b0;&#x1edd;i h&#x1ecd;c"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -216,7 +217,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txtNgaySinh">
               <Properties>
-                <Property name="toolTipText" type="java.lang.String" value="Nh&#x1ead;p theo &#x111;&#x1ecb;nh d&#x1ea1;ng mm/dd/yyyy"/>
+                <Property name="toolTipText" type="java.lang.String" value="Nh&#x1ead;p theo &#x111;&#x1ecb;nh d&#x1ea1;ng dd-MM-yyyy"/>
               </Properties>
             </Component>
             <Container class="javax.swing.JPanel" name="pnlGioiTinh">

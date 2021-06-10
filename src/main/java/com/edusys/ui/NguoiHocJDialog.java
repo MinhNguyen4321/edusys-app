@@ -77,6 +77,7 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
         tblNguoiHoc = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("EduSys - Quản lý người học");
 
         lblTitle.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblTitle.setForeground(new java.awt.Color(0, 0, 204));
@@ -96,7 +97,7 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
 
         lblGhiChu.setText("Ghi chú");
 
-        txtNgaySinh.setToolTipText("Nhập theo định dạng mm/dd/yyyy");
+        txtNgaySinh.setToolTipText("Nhập theo định dạng dd-MM-yyyy");
 
         pnlGioiTinh.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
@@ -563,6 +564,8 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
         nh.setMaNV(Auth.user.getMaNV());
         nh.setNgayDK(new Date());
         this.setForm(nh);
+        this.row = -1;
+        this.updateStatus();
     }
 
     void first() {
@@ -629,7 +632,7 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
     NguoiHoc getForm() {
         NguoiHoc nh = new NguoiHoc();
         nh.setMaNH(txtMaNH.getText());
-        nh.setHoTen(txtHoTen.getText());
+        nh.setHoTen(txtHoTen.getText().toUpperCase().trim());
         nh.setGioiTinh(rdoNam.isSelected());
         nh.setNgaySinh(XDate.toDate(txtNgaySinh.getText(), "dd-MM-yyyy"));
         nh.setDienThoai(txtDienThoai.getText());
@@ -683,7 +686,7 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
         String ngaySinh = txtNgaySinh.getText();
         if (maNH.length() == 0) {
             MsgBox.alert(this, "Mã người học không được để trống!");
-        } else if (dao.selectById(maNH) != null) {
+        } else if (dao.selectById(maNH) != null && txtMaNH.isEditable()) {
             MsgBox.alert(this, "Mã người học đã tồn tại!");
         } else if (hoTen.length() == 0) {
             MsgBox.alert(this, "Họ và tên không được để trống!");

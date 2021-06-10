@@ -120,7 +120,6 @@ public class KhoaHocJDialog extends javax.swing.JDialog {
         txtHocPhi.setOpaque(false);
         pnlForm.add(txtHocPhi);
 
-        txtMaNV.setEditable(false);
         txtMaNV.setOpaque(false);
         pnlForm.add(txtMaNV);
 
@@ -656,6 +655,7 @@ public class KhoaHocJDialog extends javax.swing.JDialog {
         kh.setHocPhi(cd.getHocPhi());
 
         this.setForm(kh);
+        tabs.setSelectedIndex(0);
     }
     
     boolean isValidated(){

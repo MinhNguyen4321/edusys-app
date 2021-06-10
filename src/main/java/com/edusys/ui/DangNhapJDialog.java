@@ -67,6 +67,10 @@ public class DangNhapJDialog extends javax.swing.JDialog {
 
         lblMatKhau.setText("Mật khẩu");
 
+        txtMaNV.setText("TeoNV");
+
+        txtMatKhau.setText("songlong");
+
         btnDangNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/edusys/icon/Key.png"))); // NOI18N
         btnDangNhap.setText("Đăng nhập");
         btnDangNhap.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);

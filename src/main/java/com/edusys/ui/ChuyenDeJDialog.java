@@ -503,6 +503,8 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
 
     void clearForm() {
         ChuyenDe cd = new ChuyenDe();
+        lblHinh.setIcon(null);
+        lblHinh.setToolTipText(null);
         this.setForm(cd);
         this.row = -1;
         this.updateStatus();
@@ -648,7 +650,7 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
             MsgBox.alert(this, "Thời lượng không được để trống!");
         } else if (txtHocPhi.getText().length() == 0) {
             MsgBox.alert(this, "Học phí không được để trống!");
-        } else if (lblHinh.getToolTipText().length() == 0) {
+        } else if (lblHinh.getToolTipText() == null) {
             MsgBox.alert(this, "Chưa thêm ảnh chuyên đề!");
         } else {
             try {

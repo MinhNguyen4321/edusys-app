@@ -207,7 +207,7 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
             } else if (!matKhau.equals(Auth.user.getMatKhau())) {
                 MsgBox.alert(this, "Mật khẩu không đúng!");
             } else if (!matKhauMoi.equals(matKhauMoi2)) {
-                MsgBox.alert(this, "Xác nhận mật khẩu không đúng!");
+                MsgBox.alert(this, "Mật khẩu xác nhận không đúng!");
             } else {
                 Auth.user.setMatKhau(matKhauMoi);
                 dao.update(Auth.user);

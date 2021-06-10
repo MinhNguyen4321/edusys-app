@@ -14,7 +14,6 @@ import java.io.File;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -641,7 +640,7 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
         String maCD = txtMaCD.getText();
         if (maCD.length() == 0) {
             MsgBox.alert(this, "Mã chuyên đề không được để trống!");
-        } else if (dao.selectById(maCD) != null) {
+        } else if (dao.selectById(maCD) != null && txtMaCD.isEditable()) {
             MsgBox.alert(this, "Mã chuyên đề đã tồn tại!");
         } else if (txtTenCD.getText().length() == 0) {
             MsgBox.alert(this, "Tên chuyên đề không được để trống!");

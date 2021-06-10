@@ -200,13 +200,13 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
             String maNV = txtMaNV.getText();
             String matKhau = new String(txtMatKhau.getPassword());
             String matKhauMoi = new String(txtMatKhauMoi.getPassword());
-            String matKhauMoi2 = new String(txtMatKhauMoi.getPassword());
+            String matKhauMoi2 = new String(txtMatKhauMoi2.getPassword());
 
-            if (!maNV.equalsIgnoreCase(Auth.user.getMaNV())) {
+            if (!maNV.equals(Auth.user.getMaNV())) {
                 MsgBox.alert(this, "Tên đăng nhập không tồn tại!");
-            } else if (!matKhau.equalsIgnoreCase(Auth.user.getMatKhau())) {
+            } else if (!matKhau.equals(Auth.user.getMatKhau())) {
                 MsgBox.alert(this, "Sai mật khẩu!");
-            } else if (!matKhauMoi.equalsIgnoreCase(matKhauMoi2)) {
+            } else if (!matKhauMoi.equals(matKhauMoi2)) {
                 MsgBox.alert(this, "Xác nhận mật khẩu không đúng!");
             } else {
                 Auth.user.setMatKhau(matKhauMoi);

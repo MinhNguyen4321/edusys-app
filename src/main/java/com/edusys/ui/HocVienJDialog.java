@@ -424,7 +424,8 @@ public class HocVienJDialog extends javax.swing.JDialog {
             int[] rows = tblHocVien.getSelectedRows();
             if (rows.length > 0 && MsgBox.confirm(this, "Bạn muốn xóa các học viên được chọn?")) {
                 for (int row : rows) {
-                    int maHV = (Integer) tblHocVien.getValueAt(row, 0);
+                    int maHV = (Integer) tblHocVien.getValueAt(row, 1);
+                    System.out.println(maHV);
                     hvdao.delete(maHV);
                 }
                 this.fillTableHocVien();

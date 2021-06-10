@@ -205,7 +205,7 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
             if (!maNV.equals(Auth.user.getMaNV())) {
                 MsgBox.alert(this, "Tên đăng nhập không tồn tại!");
             } else if (!matKhau.equals(Auth.user.getMatKhau())) {
-                MsgBox.alert(this, "Sai mật khẩu!");
+                MsgBox.alert(this, "Mật khẩu không đúng!");
             } else if (!matKhauMoi.equals(matKhauMoi2)) {
                 MsgBox.alert(this, "Xác nhận mật khẩu không đúng!");
             } else {

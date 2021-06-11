@@ -701,28 +701,40 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
         String ngaySinh = txtNgaySinh.getText();
         if (maNH.length() == 0) {
             MsgBox.alert(this, "Chưa nhập mã người học!");
+            txtMaNH.requestFocus();
         } else if (maNH.length() != 7 && txtMaNH.isEditable()) {
             MsgBox.alert(this, "Mã người học phải đúng 7 ký tự!");
+            txtMaNH.requestFocus();
         } else if (dao.selectById(maNH) != null && txtMaNH.isEditable()) {
             MsgBox.alert(this, "Mã người học đã tồn tại!");
+            txtMaNH.requestFocus();
         } else if (hoTen.length() == 0) {
             MsgBox.alert(this, "Chưa nhập họ tên!");
+            txtHoTen.requestFocus();
         } else if (!XString.removeAscent(hoTen).matches("[a-zA-Z ]+")) {
             MsgBox.alert(this, "Họ tên chỉ chứa alphabet và ký tự trắng!!");
+            txtHoTen.requestFocus();
         } else if (ngaySinh.length() == 0) {
             MsgBox.alert(this, "Chưa nhập ngày sinh!");
+            txtNgaySinh.requestFocus();
         } else if (!XDate.isDate(ngaySinh, "dd-MM-yyyy")) {
             MsgBox.alert(this, "Ngày sinh không hợp lệ (dd-MM-yyyy)!");
+            txtNgaySinh.requestFocus();
         } else if (getAge(ngaySinh) < 16){
             MsgBox.alert(this, "Người học phải từ 16 tuổi trở lên!");
+            txtNgaySinh.requestFocus();
         } else if (dienThoai.length() == 0) {
             MsgBox.alert(this, "Chưa nhập điện thoại!");
+            txtDienThoai.requestFocus();
         } else if (!dienThoai.matches("((84)|(0))\\d{9}")) {
             MsgBox.alert(this, "Số điện thoại không hợp lệ!");
+            txtDienThoai.requestFocus();
         } else if (email.length() == 0) {
             MsgBox.alert(this, "Chưa nhập email!");
+            txtEmail.requestFocus();
         } else if (!email.matches("\\w+@\\w+(\\.\\w+){1,2}")) {
             MsgBox.alert(this, "Email không hợp lệ!");
+            txtEmail.requestFocus();
         } else {
             return true;
         }

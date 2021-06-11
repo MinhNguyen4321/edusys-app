@@ -641,26 +641,28 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
     boolean isValidated() {
         String maCD = txtMaCD.getText();
         if (maCD.length() == 0) {
-            MsgBox.alert(this, "Mã chuyên đề không được để trống!");
+            MsgBox.alert(this, "Chưa nhập mã chuyên đề!");
+        } else if (maCD.length() != 5 && txtMaCD.isEditable()) {
+            MsgBox.alert(this, "Mã chuyên đề phải là 5 ký tự!");
         } else if (dao.selectById(maCD) != null && txtMaCD.isEditable()) {
             MsgBox.alert(this, "Mã chuyên đề đã tồn tại!");
         } else if (txtTenCD.getText().length() == 0) {
-            MsgBox.alert(this, "Tên chuyên đề không được để trống!");
+            MsgBox.alert(this, "Chưa nhập tên chuyên đề!");
         } else if (txtThoiLuong.getText().length() == 0) {
-            MsgBox.alert(this, "Thời lượng không được để trống!");
+            MsgBox.alert(this, "Chưa nhập thời lượng!");
         } else if (txtHocPhi.getText().length() == 0) {
-            MsgBox.alert(this, "Học phí không được để trống!");
+            MsgBox.alert(this, "Chưa nhập học phí!");
         } else if (lblHinh.getToolTipText() == null) {
-            MsgBox.alert(this, "Chưa thêm ảnh chuyên đề!");
+            MsgBox.alert(this, "Chưa chọn ảnh chuyên đề!");
         } else {
             try {
                 int thoiLuong = Integer.parseInt(txtThoiLuong.getText());
-                Double hocPhi = Double.parseDouble(txtHocPhi.getText());
+                double hocPhi = Double.parseDouble(txtHocPhi.getText());
                 if(thoiLuong < 0 || hocPhi < 0){
                     throw new NumberFormatException();
                 }
             } catch (NumberFormatException e) {
-                MsgBox.alert(this, "Thời lượng (giờ) và học phí phải là số nguyên không âm!");
+                MsgBox.alert(this, "Thời lượng/Học phí phải là số dương!");
                 return false;
             }
             return true;

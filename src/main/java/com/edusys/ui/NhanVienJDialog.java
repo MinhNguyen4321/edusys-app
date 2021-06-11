@@ -506,8 +506,8 @@ public class NhanVienJDialog extends javax.swing.JDialog {
     }
 
     void update() {
-        NhanVien nv = getForm();
         if (isValidated()) {
+            NhanVien nv = getForm();
             try {
                 dao.update(nv);
                 this.fillTable();

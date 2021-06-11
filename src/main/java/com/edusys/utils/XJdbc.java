@@ -11,7 +11,6 @@ import java.sql.SQLException;
  * @author MinIT
  */
 public class XJdbc {
-
     private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private static String dburl = "jdbc:sqlserver://localhost:1433;database=EduSys";
     private static String username = "sa";

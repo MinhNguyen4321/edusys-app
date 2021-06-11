@@ -9,6 +9,7 @@ import com.edusys.dao.NhanVienDAO;
 import com.edusys.entity.NhanVien;
 import com.edusys.utils.Auth;
 import com.edusys.utils.MsgBox;
+import com.edusys.utils.XString;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -459,7 +460,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
     NhanVien getForm() {
         NhanVien nv = new NhanVien();
         nv.setMaNV(txtMaNV.getText().trim());
-        nv.setHoTen(capitalizeWord(txtHoTen.getText()));
+        nv.setHoTen(XString.capitalizeWord(txtHoTen.getText()));
         nv.setMatKhau(new String(txtMatKhau.getPassword()).trim());
         nv.setVaiTro(rdoTruongPhong.isSelected());
         return nv;
@@ -584,37 +585,6 @@ public class NhanVienJDialog extends javax.swing.JDialog {
         btnLast.setEnabled(edit && !last);
     }
 
-    String removeAscent(String str) {
-        if (str == null || str.length() == 0) {
-            return str;
-        }
-        str.toLowerCase();
-        str = str.replaceAll("à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ", "a");
-        str = str.replaceAll("è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ", "e");
-        str = str.replaceAll("ì|í|ị|ỉ|ĩ", "i");
-        str = str.replaceAll("ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ", "o");
-        str = str.replaceAll("ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ", "u");
-        str = str.replaceAll("ỳ|ý|ỵ|ỷ|ỹ", "y");
-        str = str.replaceAll("đ", "d");
-        return str;
-    }
-    
-    String capitalizeWord(String str) {
-        str = str.trim();
-        String[] words = str.split("\\s+");
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < words.length; i++) {
-            String s = words[i].substring(0, 1).toUpperCase()
-                    + words[i].substring(1).toLowerCase();
-            sb.append(s);
-            if (i < words.length - 1) {
-                sb.append(" ");
-            }
-        }
-        return sb.toString();
-    }
-
     boolean isValidated() {
         String maNV = txtMaNV.getText();
         String hoTen = txtHoTen.getText();
@@ -633,7 +603,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
             MsgBox.alert(this, "Xác nhận mật khẩu không trùng khớp!");
         } else if (hoTen.length() == 0) {
             MsgBox.alert(this, "Chưa nhập họ tên!");
-        } else if (!removeAscent(hoTen).matches("[a-zA-Z ]+")) {
+        } else if (!XString.removeAscent(hoTen).matches("[a-zA-Z ]+")) {
             MsgBox.alert(this, "Họ tên chỉ chứa alphabet và ký tự trắng!");
         } else {
             return true;

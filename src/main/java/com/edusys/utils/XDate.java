@@ -9,7 +9,6 @@ import java.util.Date;
  * @author MinIT
  */
 public class XDate {
-
     static SimpleDateFormat formatter = new SimpleDateFormat();
 
     public static Date toDate(String dateStr, String pattern) {

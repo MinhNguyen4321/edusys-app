@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
  * @author MinIT
  */
 public class MsgBox {
-
     public static void alert(Component parent, String message) {
         JOptionPane.showMessageDialog(parent, message,
                 "Hệ thống quản lý đào tạo", JOptionPane.INFORMATION_MESSAGE);
@@ -25,5 +24,4 @@ public class MsgBox {
         return JOptionPane.showInputDialog(parent, message,
                 "Hệ thống quản lý đào tạo", JOptionPane.INFORMATION_MESSAGE);
     }
-    
 }

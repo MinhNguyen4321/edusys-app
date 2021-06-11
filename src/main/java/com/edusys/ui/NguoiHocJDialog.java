@@ -688,21 +688,21 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
         String dienThoai = txtDienThoai.getText();
         String ngaySinh = txtNgaySinh.getText();
         if (maNH.length() == 0) {
-            MsgBox.alert(this, "Mã người học không được để trống!");
+            MsgBox.alert(this, "Chưa nhập mã người học!");
         } else if (dao.selectById(maNH) != null && txtMaNH.isEditable()) {
             MsgBox.alert(this, "Mã người học đã tồn tại!");
         } else if (hoTen.length() == 0) {
-            MsgBox.alert(this, "Họ và tên không được để trống!");
+            MsgBox.alert(this, "Chưa nhập họ và tên!");
         } else if (ngaySinh.length() == 0) {
-            MsgBox.alert(this, "Ngày sinh không được để trống!");
+            MsgBox.alert(this, "Chưa nhập ngày sinh!");
         } else if (!XDate.isDate(ngaySinh, "dd-MM-yyyy")) {
             MsgBox.alert(this, "Ngày sinh không hợp lệ (dd-MM-yyyy)!");
         } else if (dienThoai.length() == 0) {
-            MsgBox.alert(this, "Điện thoại không được để trống!");
+            MsgBox.alert(this, "Chưa nhập điện thoại!");
         } else if (!dienThoai.matches("((84)|(0))\\d{9}")) {
             MsgBox.alert(this, "Số điện thoại không hợp lệ!");
         } else if (email.length() == 0) {
-            MsgBox.alert(this, "Email không được bỏ trống!");
+            MsgBox.alert(this, "Chưa nhập email!");
         } else if (!email.matches("\\w+@\\w+(\\.\\w+){1,2}")) {
             MsgBox.alert(this, "Email không hợp lệ!");
         } else {

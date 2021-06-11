@@ -12,10 +12,11 @@ import com.edusys.utils.MsgBox;
 import com.edusys.utils.XDate;
 import com.edusys.utils.XString;
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import jdk.vm.ci.meta.Local;
 
 /**
  *
@@ -681,6 +682,16 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
         this.row = -1;
         updateStatus();
     }
+    
+    int getAge(String birthDateStr){
+        if (birthDateStr != null) {
+            LocalDate birthDate = LocalDate.parse(birthDateStr, 
+                    DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            return Period.between(birthDate, LocalDate.now()).getYears();
+        } else {
+            return 0;
+        }
+    }
 
     boolean isValidated() {
         String hoTen = txtHoTen.getText();
@@ -702,7 +713,7 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
             MsgBox.alert(this, "Chưa nhập ngày sinh!");
         } else if (!XDate.isDate(ngaySinh, "dd-MM-yyyy")) {
             MsgBox.alert(this, "Ngày sinh không hợp lệ (dd-MM-yyyy)!");
-        } else if (XDate.getAge(ngaySinh) < 16){
+        } else if (getAge(ngaySinh) < 16){
             MsgBox.alert(this, "Người học phải từ 16 tuổi trở lên!");
         } else if (dienThoai.length() == 0) {
             MsgBox.alert(this, "Chưa nhập điện thoại!");

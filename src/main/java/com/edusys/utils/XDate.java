@@ -2,9 +2,6 @@ package com.edusys.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -42,15 +39,5 @@ public class XDate {
             return false;
         }
         return true;
-    }
-    
-    public static int getAge(String birthDateStr){
-        if (birthDateStr != null) {
-            LocalDate birthDate = LocalDate.parse(birthDateStr, 
-                    DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-            return Period.between(birthDate, LocalDate.now()).getYears();
-        } else {
-            return 0;
-        }
     }
 }

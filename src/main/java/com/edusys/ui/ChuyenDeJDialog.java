@@ -554,8 +554,8 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
     }
 
     void update() {
-        ChuyenDe cd = getForm();
         if (isValidated()) {
+            ChuyenDe cd = getForm();
             try {
                 dao.update(cd);
                 this.fillTable();

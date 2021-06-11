@@ -474,9 +474,9 @@ public class NhanVienJDialog extends javax.swing.JDialog {
 
     NhanVien getForm() {
         NhanVien nv = new NhanVien();
-        nv.setMaNV(txtMaNV.getText());
-        nv.setHoTen(txtHoTen.getText());
-        nv.setMatKhau(new String(txtMatKhau.getPassword()));
+        nv.setMaNV(txtMaNV.getText().trim());
+        nv.setHoTen(txtHoTen.getText().trim());
+        nv.setMatKhau(new String(txtMatKhau.getPassword()).trim());
         nv.setVaiTro(rdoTruongPhong.isSelected());
         return nv;
     }
@@ -496,7 +496,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
                 dao.insert(nv);
                 this.fillTable();
                 this.clearForm();
-                MsgBox.alert(this, "Thêm nhân viên mới thành công!");
+                MsgBox.alert(this, "Thêm mới thành công!");
             } catch (Exception e) {
                 MsgBox.alert(this, "Thêm mới thất bại!");
             }
@@ -510,7 +510,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
                 dao.update(nv);
                 this.fillTable();
                 this.updateStatus();
-                MsgBox.alert(this, "Cập nhật thông tin thành công!");
+                MsgBox.alert(this, "Cập nhật thành công!");
             } catch (Exception e) {
                 MsgBox.alert(this, "Cập nhật thất bại!");
             }
@@ -529,7 +529,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
                     dao.delete(maNV);
                     this.fillTable();
                     this.clearForm();
-                    MsgBox.alert(this, "Xoá nhân viên thành công!");
+                    MsgBox.alert(this, "Xoá thành công!");
                 } catch (Exception e) {
                     MsgBox.alert(this, "Xoá thất bại!");
                 }
@@ -581,20 +581,41 @@ public class NhanVienJDialog extends javax.swing.JDialog {
         btnLast.setEnabled(edit && !last);
     }
 
+    String removeAscent(String str) {
+        if (str == null || str.length() == 0) {
+            return str;
+        }
+        str.toLowerCase();
+        str = str.replaceAll("à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ", "a");
+        str = str.replaceAll("è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ", "e");
+        str = str.replaceAll("ì|í|ị|ỉ|ĩ", "i");
+        str = str.replaceAll("ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ", "o");
+        str = str.replaceAll("ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ", "u");
+        str = str.replaceAll("ỳ|ý|ỵ|ỷ|ỹ", "y");
+        str = str.replaceAll("đ", "d");
+        return str;
+    }
+
     boolean isValidated() {
-        NhanVien nv = this.getForm();
-        if (nv.getMaNV().length() == 0) {
-            MsgBox.alert(this, "Mã nhân viên không được để trống!");
-        } else if (dao.selectById(nv.getMaNV()) != null && txtMaNV.isEditable()) {
+        String maNV = txtMaNV.getText();
+        String hoTen = txtHoTen.getText();
+        char[] matKhau1 = txtMatKhau.getPassword();
+        char[] matKhau2 = txtMatKhau2.getPassword();
+        
+        if (maNV.length() == 0) {
+            MsgBox.alert(this, "Chưa nhập mã nhân viên!");
+        } else if (dao.selectById(maNV) != null && txtMaNV.isEditable()) {
             MsgBox.alert(this, "Mã nhân viên đã tồn tại!");
-        } else if (nv.getMatKhau().length() == 0) {
-            MsgBox.alert(this, "Mật khẩu không được để trống!");
-        } else if (txtMatKhau2.getPassword().length == 0) {
-            MsgBox.alert(this, "Mật khẩu xác nhận không được để trống!");
-        } else if (nv.getHoTen().length() == 0) {
-            MsgBox.alert(this, "Họ và tên nhân viên không được để trống!");
-        } else if (!nv.getMatKhau().equals(new String(txtMatKhau2.getPassword()))) {
-            MsgBox.alert(this, "Xác nhận mật khẩu không đúng!");
+        } else if (matKhau1.length == 0) {
+            MsgBox.alert(this, "Chưa nhập mật khẩu!");
+        } else if (matKhau2.length == 0) {
+            MsgBox.alert(this, "Chưa nhập mật khẩu xác nhận!");
+        } else if (!new String(matKhau1).equals(new String(matKhau2))) {
+            MsgBox.alert(this, "Xác nhận mật khẩu không trùng khớp!");
+        } else if (hoTen.length() == 0) {
+            MsgBox.alert(this, "Chưa nhập họ tên!");
+        } else if (!removeAscent(hoTen).matches("[a-zA-Z ]+")) {
+            MsgBox.alert(this, "Họ tên chỉ chứa alphabet và ký tự trắng!");
         } else {
             return true;
         }

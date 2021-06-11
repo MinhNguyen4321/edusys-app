@@ -217,7 +217,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         } else if (matKhau.length == 0) {
             MsgBox.alert(this, "Chưa nhập mật khẩu!");
         } else if (nv == null) {
-            MsgBox.alert(this, "Sai tên đăng nhập!");
+            MsgBox.alert(this, "Tên đăng nhập không tồn tại!");
         } else if (!nv.getMatKhau().equals(new String(matKhau))) {
             MsgBox.alert(this, "Sai mật khẩu!");
         } else {

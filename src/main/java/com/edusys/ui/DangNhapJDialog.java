@@ -214,12 +214,16 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         NhanVien nv = dao.selectById(maNV);
         if (maNV.length() == 0) {
             MsgBox.alert(this, "Chưa nhập tên đăng nhập!");
+            txtMaNV.requestFocus();
         } else if (matKhau.length == 0) {
             MsgBox.alert(this, "Chưa nhập mật khẩu!");
+            txtMatKhau.requestFocus();
         } else if (nv == null) {
             MsgBox.alert(this, "Tên đăng nhập không tồn tại!");
+            txtMaNV.requestFocus();
         } else if (!nv.getMatKhau().equals(new String(matKhau))) {
             MsgBox.alert(this, "Sai mật khẩu!");
+            txtMaNV.requestFocus();
         } else {
             Auth.user = nv;
             mainFrame.setVisible(true);

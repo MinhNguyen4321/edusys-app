@@ -603,7 +603,7 @@ public class KhoaHocJDialog extends javax.swing.JDialog {
                 khdao.insert(kh);
                 this.fillTable();
                 this.clearForm();
-                MsgBox.alert(this, "Thêm khoá học mới thành công!");
+                MsgBox.alert(this, "Thêm mới thành công!");
             } catch (Exception e) {
                 MsgBox.alert(this, "Thêm mới thất bại!");
             }
@@ -620,7 +620,7 @@ public class KhoaHocJDialog extends javax.swing.JDialog {
                     khdao.delete(maKH);
                     this.fillTable();
                     this.clearForm();
-                    MsgBox.alert(this, "Xóa khoá học thành công!");
+                    MsgBox.alert(this, "Xóa thành công!");
                 } catch (Exception e) {
                     MsgBox.alert(this, "Xóa thất bại!");
                     e.printStackTrace();
@@ -635,7 +635,7 @@ public class KhoaHocJDialog extends javax.swing.JDialog {
             try {
                 khdao.update(kh);
                 this.fillTable();
-                MsgBox.alert(this, "Cập nhật thông tin thành công!");
+                MsgBox.alert(this, "Cập nhật thành công!");
             } catch (Exception e) {
                 MsgBox.alert(this, "Cập nhật thất bại!");
             }

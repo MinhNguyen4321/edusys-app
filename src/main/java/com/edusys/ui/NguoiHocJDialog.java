@@ -520,9 +520,10 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
                 dao.insert(nh);
                 this.fillTable();
                 this.clearForm();
-                MsgBox.alert(this, "Thêm người học mới thành công!");
+                MsgBox.alert(this, "Thêm mới thành công!");
             } catch (Exception e) {
                 MsgBox.alert(this, "Thêm mới thất bại!");
+                e.printStackTrace();
             }
         }
     }
@@ -534,9 +535,10 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
                 dao.update(nh);
                 this.fillTable();
                 this.updateStatus();
-                MsgBox.alert(this, "Cập nhật thông tin thành công!");
+                MsgBox.alert(this, "Cập nhật thành công!");
             } catch (Exception e) {
                 MsgBox.alert(this, "Cập nhật thất bại!");
+                e.printStackTrace();
             }
         }
     }
@@ -551,10 +553,11 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
                 dao.delete(maNH);
                 this.fillTable();
                 this.clearForm();
-                MsgBox.alert(this, "Xóa người học thành công!");
+                MsgBox.alert(this, "Xóa thành công!");
             } 
             catch (Exception e) {
                 MsgBox.alert(this, "Xóa thất bại!");
+                e.printStackTrace();
             }            
         }  
     }

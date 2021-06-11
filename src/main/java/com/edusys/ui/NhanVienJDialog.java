@@ -491,8 +491,8 @@ public class NhanVienJDialog extends javax.swing.JDialog {
     }
 
     void insert() {
-        NhanVien nv = getForm();
         if (isValidated()) {
+            NhanVien nv = getForm();
             try {
                 dao.insert(nv);
                 this.fillTable();
@@ -593,18 +593,25 @@ public class NhanVienJDialog extends javax.swing.JDialog {
         
         if (maNV.length() == 0) {
             MsgBox.alert(this, "Chưa nhập mã nhân viên!");
+            txtMaNV.requestFocus();
         } else if (dao.selectById(maNV) != null && txtMaNV.isEditable()) {
             MsgBox.alert(this, "Mã nhân viên đã tồn tại!");
+            txtMaNV.requestFocus();
         } else if (matKhau1.length == 0) {
             MsgBox.alert(this, "Chưa nhập mật khẩu!");
+            txtMatKhau.requestFocus();
         } else if (matKhau2.length == 0) {
             MsgBox.alert(this, "Chưa nhập mật khẩu xác nhận!");
+            txtMatKhau2.requestFocus();
         } else if (!new String(matKhau1).equals(new String(matKhau2))) {
             MsgBox.alert(this, "Xác nhận mật khẩu không trùng khớp!");
+            txtMatKhau2.requestFocus();
         } else if (hoTen.length() == 0) {
             MsgBox.alert(this, "Chưa nhập họ tên!");
+            txtHoTen.requestFocus();
         } else if (!XString.removeAscent(hoTen).matches("[a-zA-Z ]+")) {
             MsgBox.alert(this, "Họ tên chỉ chứa alphabet và ký tự trắng!");
+            txtHoTen.requestFocus();
         } else {
             return true;
         }

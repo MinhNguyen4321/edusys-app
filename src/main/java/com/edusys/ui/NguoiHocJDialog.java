@@ -10,9 +10,12 @@ import com.edusys.entity.NguoiHoc;
 import com.edusys.utils.Auth;
 import com.edusys.utils.MsgBox;
 import com.edusys.utils.XDate;
+import com.edusys.utils.XString;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import jdk.vm.ci.meta.Local;
 
 /**
  *
@@ -415,7 +418,7 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
 
     private void tblNguoiHocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNguoiHocMouseClicked
         // TODO add your handling code here:
-        if(evt.getClickCount() >= 2){
+        if (evt.getClickCount() >= 2) {
             this.row = tblNguoiHoc.getSelectedRow();
             this.edit();
         }
@@ -514,7 +517,7 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
     }
 
     void insert() {
-        if(isValidated()){
+        if (isValidated()) {
             NguoiHoc nh = getForm();
             try {
                 dao.insert(nh);
@@ -529,7 +532,7 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
     }
 
     void update() {
-        if(isValidated()){
+        if (isValidated()) {
             NguoiHoc nh = getForm();
             try {
                 dao.update(nh);
@@ -544,22 +547,20 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
     }
 
     void delete() {
-        if(!Auth.isManager()){
-           MsgBox.alert(this, "Bạn không có quyền xóa người học!");
-        }
-        else if(MsgBox.confirm(this, "Bạn thực sự muốn xóa người học này?")){
+        if (!Auth.isManager()) {
+            MsgBox.alert(this, "Bạn không có quyền xóa người học!");
+        } else if (MsgBox.confirm(this, "Bạn thực sự muốn xóa người học này?")) {
             String maNH = txtMaNH.getText();
             try {
                 dao.delete(maNH);
                 this.fillTable();
                 this.clearForm();
                 MsgBox.alert(this, "Xóa thành công!");
-            } 
-            catch (Exception e) {
+            } catch (Exception e) {
                 MsgBox.alert(this, "Xóa thất bại!");
                 e.printStackTrace();
-            }            
-        }  
+            }
+        }
     }
 
     void clearForm() {
@@ -689,14 +690,20 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
         String ngaySinh = txtNgaySinh.getText();
         if (maNH.length() == 0) {
             MsgBox.alert(this, "Chưa nhập mã người học!");
+        } else if (maNH.length() != 7 && txtMaNH.isEditable()) {
+            MsgBox.alert(this, "Mã người học phải đúng 7 ký tự!");
         } else if (dao.selectById(maNH) != null && txtMaNH.isEditable()) {
             MsgBox.alert(this, "Mã người học đã tồn tại!");
         } else if (hoTen.length() == 0) {
-            MsgBox.alert(this, "Chưa nhập họ và tên!");
+            MsgBox.alert(this, "Chưa nhập họ tên!");
+        } else if (!XString.removeAscent(hoTen).matches("[a-zA-Z ]+")) {
+            MsgBox.alert(this, "Họ tên chỉ chứa alphabet và ký tự trắng!!");
         } else if (ngaySinh.length() == 0) {
             MsgBox.alert(this, "Chưa nhập ngày sinh!");
         } else if (!XDate.isDate(ngaySinh, "dd-MM-yyyy")) {
             MsgBox.alert(this, "Ngày sinh không hợp lệ (dd-MM-yyyy)!");
+        } else if (XDate.getAge(ngaySinh) < 16){
+            MsgBox.alert(this, "Người học phải từ 16 tuổi trở lên!");
         } else if (dienThoai.length() == 0) {
             MsgBox.alert(this, "Chưa nhập điện thoại!");
         } else if (!dienThoai.matches("((84)|(0))\\d{9}")) {

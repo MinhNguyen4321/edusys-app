@@ -223,14 +223,19 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
     private boolean isValidated() {
         if (txtMaNV.getText().length() == 0) {
             MsgBox.alert(this, "Chưa nhập tên đăng nhập!");
+            txtMaNV.requestFocus();
         } else if (txtMatKhau.getPassword().length == 0) {
             MsgBox.alert(this, "Chưa nhập mật khẩu hiện tại!");
+            txtMatKhau.requestFocus();
         } else if (txtMatKhauMoi.getPassword().length == 0) {
             MsgBox.alert(this, "Chưa nhập mật khẩu mới!");
+            txtMatKhauMoi.requestFocus();
         } else if (txtMatKhauMoi.getPassword().length < 3) {
             MsgBox.alert(this, "Mật khẩu phải từ 3 ký tự trở lên!");
+            txtMatKhauMoi.requestFocus();
         } else if (txtMatKhauMoi2.getPassword().length == 0) {
             MsgBox.alert(this, "Chưa nhập mật khẩu xác nhận!");
+            txtMatKhauMoi2.requestFocus();
         } else {
             return true;
         }

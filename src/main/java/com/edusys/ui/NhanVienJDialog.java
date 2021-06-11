@@ -455,6 +455,15 @@ public class NhanVienJDialog extends javax.swing.JDialog {
             MsgBox.alert(this, "Lỗi truy vấn dữ liệu!");
         }
     }
+    
+    NhanVien getForm() {
+        NhanVien nv = new NhanVien();
+        nv.setMaNV(txtMaNV.getText().trim());
+        nv.setHoTen(capitalizeWord(txtHoTen.getText()));
+        nv.setMatKhau(new String(txtMatKhau.getPassword()).trim());
+        nv.setVaiTro(rdoTruongPhong.isSelected());
+        return nv;
+    }
 
     void setForm(NhanVien nv) {
         txtMaNV.setText(nv.getMaNV());
@@ -470,15 +479,6 @@ public class NhanVienJDialog extends javax.swing.JDialog {
         this.setForm(nv);
         this.row = -1;
         this.updateStatus();
-    }
-
-    NhanVien getForm() {
-        NhanVien nv = new NhanVien();
-        nv.setMaNV(txtMaNV.getText().trim());
-        nv.setHoTen(txtHoTen.getText().trim());
-        nv.setMatKhau(new String(txtMatKhau.getPassword()).trim());
-        nv.setVaiTro(rdoTruongPhong.isSelected());
-        return nv;
     }
 
     void edit() {
@@ -499,6 +499,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
                 MsgBox.alert(this, "Thêm mới thành công!");
             } catch (Exception e) {
                 MsgBox.alert(this, "Thêm mới thất bại!");
+                e.printStackTrace();
             }
         }
     }
@@ -513,6 +514,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
                 MsgBox.alert(this, "Cập nhật thành công!");
             } catch (Exception e) {
                 MsgBox.alert(this, "Cập nhật thất bại!");
+                e.printStackTrace();
             }
         }
     }
@@ -532,6 +534,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
                     MsgBox.alert(this, "Xoá thành công!");
                 } catch (Exception e) {
                     MsgBox.alert(this, "Xoá thất bại!");
+                    e.printStackTrace();
                 }
             }
         }

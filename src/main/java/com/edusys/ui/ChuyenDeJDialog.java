@@ -642,16 +642,22 @@ public class ChuyenDeJDialog extends javax.swing.JDialog {
         String maCD = txtMaCD.getText();
         if (maCD.length() == 0) {
             MsgBox.alert(this, "Chưa nhập mã chuyên đề!");
+            txtMaCD.requestFocus();
         } else if (maCD.length() != 5 && txtMaCD.isEditable()) {
             MsgBox.alert(this, "Mã chuyên đề phải là 5 ký tự!");
+            txtMaCD.requestFocus();
         } else if (dao.selectById(maCD) != null && txtMaCD.isEditable()) {
             MsgBox.alert(this, "Mã chuyên đề đã tồn tại!");
+            txtMaCD.requestFocus();
         } else if (txtTenCD.getText().length() == 0) {
             MsgBox.alert(this, "Chưa nhập tên chuyên đề!");
+            txtTenCD.requestFocus();
         } else if (txtThoiLuong.getText().length() == 0) {
             MsgBox.alert(this, "Chưa nhập thời lượng!");
+            txtThoiLuong.requestFocus();
         } else if (txtHocPhi.getText().length() == 0) {
             MsgBox.alert(this, "Chưa nhập học phí!");
+            txtHocPhi.requestFocus();
         } else if (lblHinh.getToolTipText() == null) {
             MsgBox.alert(this, "Chưa chọn ảnh chuyên đề!");
         } else {

@@ -666,8 +666,8 @@ public class KhoaHocJDialog extends javax.swing.JDialog {
             MsgBox.alert(this, "Chưa nhập ngày khai giảng khoá học!");
         } else if(!XDate.isDate(ngayKG, "dd-MM-yyyy")) {
             MsgBox.alert(this, "Ngày khai giảng không hợp lệ (dd-MM-yyyy)!");
-        } else if(ngayKG.compareTo(ngayTao) < 0) {
-            MsgBox.alert(this, "Ngày khai giảng phải lớn hơn ngày tạo!");
+        } else if(ngayKG.compareTo(ngayTao) < 1) {
+            MsgBox.alert(this, "Ngày khai giảng phải sau ngày tạo!");
         } else {
             return true;
         }

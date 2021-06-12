@@ -664,10 +664,13 @@ public class KhoaHocJDialog extends javax.swing.JDialog {
         String ngayTao = txtNgayTao.getText();
         if(ngayKG.length() == 0){
             MsgBox.alert(this, "Chưa nhập ngày khai giảng khoá học!");
+            txtNgayKG.requestFocus();
         } else if(!XDate.isDate(ngayKG, "dd-MM-yyyy")) {
             MsgBox.alert(this, "Ngày khai giảng không hợp lệ (dd-MM-yyyy)!");
+            txtNgayKG.requestFocus();
         } else if(ngayKG.compareTo(ngayTao) < 1) {
             MsgBox.alert(this, "Ngày khai giảng phải sau ngày tạo!");
+            txtNgayKG.requestFocus();
         } else {
             return true;
         }

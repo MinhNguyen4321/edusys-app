@@ -454,7 +454,7 @@ public class HocVienJDialog extends javax.swing.JDialog {
                     throw new NumberFormatException();
                 }
             } catch (NumberFormatException e) {
-                MsgBox.alert(this, "Nhập điểm không hợp lệ (0 - 10)!");
+                MsgBox.alert(this, "Điểm không hợp lệ (0 - 10)!");
                 tblHocVien.setRowSelectionInterval(i, i);
                 return false;
             } catch (NullPointerException e) {

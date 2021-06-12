@@ -133,14 +133,8 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtMaNV">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="TeoNV"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JPasswordField" name="txtMatKhau">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="songlong"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnDangNhap">
           <Properties>

@@ -657,7 +657,7 @@ public class KhoaHocJDialog extends javax.swing.JDialog {
         this.setForm(kh);
         tabs.setSelectedIndex(0);
     }
-    
+     
     boolean isValidated(){
         String ngayKG = txtNgayKG.getText();
         if(ngayKG.length() == 0){

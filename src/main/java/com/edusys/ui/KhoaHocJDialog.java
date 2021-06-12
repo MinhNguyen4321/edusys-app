@@ -120,6 +120,7 @@ public class KhoaHocJDialog extends javax.swing.JDialog {
         txtHocPhi.setOpaque(false);
         pnlForm.add(txtHocPhi);
 
+        txtMaNV.setEditable(false);
         txtMaNV.setOpaque(false);
         pnlForm.add(txtMaNV);
 
@@ -660,10 +661,13 @@ public class KhoaHocJDialog extends javax.swing.JDialog {
      
     boolean isValidated(){
         String ngayKG = txtNgayKG.getText();
+        String ngayTao = txtNgayTao.getText();
         if(ngayKG.length() == 0){
             MsgBox.alert(this, "Chưa nhập ngày khai giảng khoá học!");
         } else if(!XDate.isDate(ngayKG, "dd-MM-yyyy")) {
             MsgBox.alert(this, "Ngày khai giảng không hợp lệ (dd-MM-yyyy)!");
+        } else if(ngayKG.compareTo(ngayTao) < 0) {
+            MsgBox.alert(this, "Ngày khai giảng phải lớn hơn ngày tạo!");
         } else {
             return true;
         }

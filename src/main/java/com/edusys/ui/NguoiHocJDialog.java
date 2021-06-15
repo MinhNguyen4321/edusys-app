@@ -707,22 +707,6 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
         return str;
     }
 
-    public static String capitalizeWord(String str) {
-        str = str.trim();
-        String[] words = str.split("\\s+");
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < words.length; i++) {
-            String s = words[i].substring(0, 1).toUpperCase()
-                    + words[i].substring(1).toLowerCase();
-            sb.append(s);
-            if (i < words.length - 1) {
-                sb.append(" ");
-            }
-        }
-        return sb.toString();
-    }
-
     boolean isValidated() {
         String hoTen = txtHoTen.getText();
         String maNH = txtMaNH.getText();

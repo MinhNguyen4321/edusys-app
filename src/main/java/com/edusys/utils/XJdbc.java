@@ -16,6 +16,9 @@ public class XJdbc {
     private static String username = "sa";
     private static String password = "123456";
 
+    /*
+     * Nạp driver
+     */
     static {
         try {
             Class.forName(driver);
@@ -23,7 +26,17 @@ public class XJdbc {
             throw new RuntimeException(ex);
         }
     }
-
+    
+    /**
+     * Xây dựng PreparedStatement
+     *
+     * @param sql là câu lệnh SQL chứa có thể chứa tham số. Nó có thể là một lời
+     * gọi thủ tục lưu
+     * @param args là danh sách các giá trị được cung cấp cho các tham số trong
+     * câu lệnh sql
+     * @return PreparedStatement tạo được
+     * @throws java.sql.SQLException lỗi sai cú pháp
+     */
     public static PreparedStatement getStmt(String sql, Object... args) throws SQLException {
         Connection connection = DriverManager.getConnection(dburl, username, password);
         PreparedStatement stmt = null;
@@ -56,6 +69,15 @@ public class XJdbc {
         }
     }
 
+    /**
+     * Thực hiện câu lệnh SQL thao tác (INSERT, UPDATE, DELETE) hoặc thủ tục lưu
+     * thao tác dữ liệu
+     *
+     * @param sql là câu lệnh SQL chứa có thể chứa tham số. Nó có thể là một lời
+     * gọi thủ tục lưu
+     * @param args là danh sách các giá trị được cung cấp cho các tham số trong
+     * câu lệnh sql *
+     */
     public static int update(String sql, Object... args) {
         try {
             PreparedStatement stmt = XJdbc.getStmt(sql, args);

@@ -513,7 +513,6 @@ public class KhoaHocJDialog extends javax.swing.JDialog {
 
         this.fillTable();
         this.updateStatus();
-        this.row = -1;
         tabs.setSelectedIndex(1);
     }
 

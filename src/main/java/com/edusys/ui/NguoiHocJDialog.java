@@ -280,6 +280,12 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
             }
         });
 
+        txtTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimKiemKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlTimKiemLayout = new javax.swing.GroupLayout(pnlTimKiem);
         pnlTimKiem.setLayout(pnlTimKiemLayout);
         pnlTimKiemLayout.setHorizontalGroup(
@@ -423,6 +429,11 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
             this.edit();
         }
     }//GEN-LAST:event_tblNguoiHocMouseClicked
+
+    private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
+        // TODO add your handling code here:
+        fillTable();
+    }//GEN-LAST:event_txtTimKiemKeyReleased
 
     /**
      * @param args the command line arguments

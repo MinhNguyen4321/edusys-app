@@ -569,7 +569,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
         boolean first = (this.row == 0);
         boolean last = (this.row == tblNhanVien.getRowCount() - 1);
         // Trạng thái chọn trên bảng NhanVien
-        if (edit) {
+        if(edit) {
             tblNhanVien.setRowSelectionInterval(row, row);
         }
         // Trạng thái form

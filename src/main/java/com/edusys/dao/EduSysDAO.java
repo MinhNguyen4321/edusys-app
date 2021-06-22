@@ -12,5 +12,5 @@ abstract public class EduSysDAO<EntityType, KeyType> {
     abstract public void delete(KeyType id);
     abstract public EntityType selectById(KeyType id);
     abstract public List<EntityType> selectAll();
-    abstract protected List<EntityType> selectBySql(String sqlString, Object...args);
+    abstract protected List<EntityType> selectBySql(String sql, Object...args);
 }

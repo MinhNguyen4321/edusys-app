@@ -736,7 +736,7 @@ public class NguoiHocJDialog extends javax.swing.JDialog {
         } else if (hoTen.length() == 0) {
             MsgBox.alert(this, "Chưa nhập họ tên!");
             txtHoTen.requestFocus();
-        } else if (removeAscent(hoTen).matches("[a-zA-Z ]+")) {
+        } else if (!removeAscent(hoTen).matches("[a-zA-Z ]+")) {
             MsgBox.alert(this, "Họ tên chỉ chứa alphabet và ký tự trắng!!");
             txtHoTen.requestFocus();
         } else if (ngaySinh.length() == 0) {

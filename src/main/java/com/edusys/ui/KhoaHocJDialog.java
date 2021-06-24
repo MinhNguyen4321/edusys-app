@@ -521,10 +521,6 @@ public class KhoaHocJDialog extends javax.swing.JDialog {
         boolean first = (this.row == 0);
         boolean last = (this.row == tblKhoaHoc.getRowCount() - 1);
 
-        if (edit) {
-            tblKhoaHoc.setRowSelectionInterval(row, row);
-        }
-
         txtMaNV.setEditable(!edit);
         btnThem.setEnabled(!edit);
         btnSua.setEnabled(edit);
@@ -655,6 +651,8 @@ public class KhoaHocJDialog extends javax.swing.JDialog {
         kh.setHocPhi(cd.getHocPhi());
 
         this.setForm(kh);
+        this.row = -1;
+        this.updateStatus();
         tabs.setSelectedIndex(0);
     }
      

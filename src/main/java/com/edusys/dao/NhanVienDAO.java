@@ -67,6 +67,8 @@ public class NhanVienDAO extends EduSysDAO<NhanVien, String> {
                     entity.setVaiTro(rs.getBoolean("VaiTro"));
                     list.add(entity);
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
             } finally {
                 rs.getStatement().getConnection().close();
             }

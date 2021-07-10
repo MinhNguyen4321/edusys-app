@@ -9,6 +9,7 @@ import com.edusys.dao.NhanVienDAO;
 import com.edusys.entity.NhanVien;
 import com.edusys.utils.Auth;
 import com.edusys.utils.MsgBox;
+import com.edusys.utils.XSecurity;
 
 /**
  *
@@ -205,25 +206,20 @@ public class DangNhapJDialog extends javax.swing.JDialog {
     }
 
     void dangNhap() {
-        String maNV = txtMaNV.getText();
-        char[] matKhau = txtMatKhau.getPassword();
-        NhanVien nv = dao.selectById(maNV);
-        if (maNV.length() == 0) {
-            MsgBox.alert(this, "Chưa nhập tên đăng nhập!");
-            txtMaNV.requestFocus();
-        } else if (matKhau.length == 0) {
-            MsgBox.alert(this, "Chưa nhập mật khẩu!");
-            txtMatKhau.requestFocus();
-        } else if (nv == null) {
-            MsgBox.alert(this, "Tên đăng nhập không tồn tại!");
-            txtMaNV.requestFocus();
-        } else if (!nv.getMatKhau().equals(new String(matKhau))) {
-            MsgBox.alert(this, "Sai mật khẩu!");
-            txtMaNV.requestFocus();
-        } else {
-            Auth.user = nv;
-            mainFrame.setVisible(true);
-            this.dispose();
+        if (isValidated()) {
+            NhanVien nv = dao.selectById(txtMaNV.getText());
+            String matKhau = new String(txtMatKhau.getPassword());
+            if (nv == null) {
+                MsgBox.alert(this, "Tên đăng nhập không tồn tại!");
+                txtMaNV.requestFocus();
+            } else if (!XSecurity.authenticate(matKhau, nv.getMatKhau(), nv.getMuoi())) {
+                MsgBox.alert(this, "Sai mật khẩu!");
+                txtMaNV.requestFocus();
+            } else {
+                Auth.user = nv;
+                mainFrame.setVisible(true);
+                this.dispose();
+            }
         }
     }
 
@@ -232,4 +228,18 @@ public class DangNhapJDialog extends javax.swing.JDialog {
             System.exit(0);
         }
     }
+
+    boolean isValidated() {
+        if (txtMaNV.getText().length() == 0) {
+            MsgBox.alert(this, "Chưa nhập tên đăng nhập!");
+            txtMaNV.requestFocus();
+        } else if (txtMatKhau.getPassword().length == 0) {
+            MsgBox.alert(this, "Chưa nhập mật khẩu!");
+            txtMatKhau.requestFocus();
+        } else {
+            return true;
+        }
+        return false;
+    }
+
 }

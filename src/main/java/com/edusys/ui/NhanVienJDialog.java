@@ -9,6 +9,7 @@ import com.edusys.dao.NhanVienDAO;
 import com.edusys.entity.NhanVien;
 import com.edusys.utils.Auth;
 import com.edusys.utils.MsgBox;
+import com.edusys.utils.XSecurity;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -448,7 +449,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
                     nv.getMaNV(),
                     nv.getMatKhau(),
                     nv.getHoTen(),
-                    nv.isVaiTro() ? "Trưởng phòng" : "Nhân viên"
+                    nv.isVaiTro() ? "Trưởng phòng" : "Nhân viên",
                 });
             }
         } catch (Exception e) {
@@ -458,10 +459,13 @@ public class NhanVienJDialog extends javax.swing.JDialog {
     
     NhanVien getForm() {
         NhanVien nv = new NhanVien();
+        String muoi = XSecurity.generateSalt(5);
+        String matKhau = new String(txtMatKhau.getPassword()).trim();
         nv.setMaNV(txtMaNV.getText().trim());
         nv.setHoTen(capitalizeWord(txtHoTen.getText()));
-        nv.setMatKhau(new String(txtMatKhau.getPassword()).trim());
+        nv.setMatKhau(XSecurity.getSecurePasswordSHA512(matKhau, muoi));
         nv.setVaiTro(rdoTruongPhong.isSelected());
+        nv.setMuoi(muoi);
         return nv;
     }
 
@@ -639,7 +643,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
         } else if (hoTen.length() == 0) {
             MsgBox.alert(this, "Chưa nhập họ tên!");
             txtHoTen.requestFocus();
-        } else if (removeAscent(hoTen).matches("[a-zA-Z ]+")) {
+        } else if (!removeAscent(hoTen).matches("[a-zA-Z ]+")) {
             MsgBox.alert(this, "Họ tên chỉ chứa alphabet và ký tự trắng!");
             txtHoTen.requestFocus();
         } else {

@@ -9,15 +9,17 @@ public class NhanVien {
     private String matKhau;
     private String hoTen;
     private boolean vaiTro = false;
+    private String muoi;
 
     public NhanVien() {
     }
 
-    public NhanVien(String maNV, String matKhau, String hoTen, boolean vaiTro) {
+    public NhanVien(String maNV, String matKhau, String hoTen, boolean vaiTro, String muoi) {
         this.maNV = maNV;
         this.matKhau = matKhau;
         this.hoTen = hoTen;
         this.vaiTro = vaiTro;
+        this.muoi = muoi;
     }
 
     public String getMaNV() {
@@ -55,5 +57,13 @@ public class NhanVien {
     @Override
     public String toString(){
         return this.getHoTen();
+    }
+
+    public String getMuoi() {
+        return muoi;
+    }
+
+    public void setMuoi(String muoi) {
+        this.muoi = muoi;
     }
 }

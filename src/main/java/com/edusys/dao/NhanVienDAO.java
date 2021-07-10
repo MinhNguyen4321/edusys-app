@@ -15,21 +15,23 @@ public class NhanVienDAO extends EduSysDAO<NhanVien, String> {
 
     @Override
     public void insert(NhanVien model) {
-        String sql = "INSERT INTO NhanVien (MaNV, MatKhau, HoTen, VaiTro) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO NhanVien (MaNV, MatKhau, HoTen, VaiTro, Muoi) VALUES (?, ?, ?, ?, ?)";
         XJdbc.update(sql,
                 model.getMaNV(),
                 model.getMatKhau(),
                 model.getHoTen(),
-                model.isVaiTro());
+                model.isVaiTro(),
+                model.getMuoi());
     }
 
     @Override
     public void update(NhanVien model) {
-        String sql = "UPDATE NhanVien SET MatKhau = ?, HoTen = ?, VaiTro = ? WHERE MaNV = ?";
+        String sql = "UPDATE NhanVien SET MatKhau = ?, HoTen = ?, VaiTro = ?, Muoi = ? WHERE MaNV = ?";
         XJdbc.update(sql,
                 model.getMatKhau(),
                 model.getHoTen(),
                 model.isVaiTro(),
+                model.getMuoi(),
                 model.getMaNV());
     }
 
@@ -65,6 +67,7 @@ public class NhanVienDAO extends EduSysDAO<NhanVien, String> {
                     entity.setMatKhau(rs.getString("MatKhau"));
                     entity.setHoTen(rs.getString("HoTen"));
                     entity.setVaiTro(rs.getBoolean("VaiTro"));
+                    entity.setMuoi(rs.getString("Muoi"));
                     list.add(entity);
                 }
             } catch (SQLException e) {

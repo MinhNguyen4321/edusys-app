@@ -8,6 +8,7 @@ package com.edusys.ui;
 import com.edusys.dao.NhanVienDAO;
 import com.edusys.utils.Auth;
 import com.edusys.utils.MsgBox;
+import com.edusys.utils.XSecurity;
 
 /**
  *
@@ -204,12 +205,14 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
 
             if (!maNV.equals(Auth.user.getMaNV())) {
                 MsgBox.alert(this, "Tên đăng nhập không tồn tại!");
-            } else if (!matKhau.equals(Auth.user.getMatKhau())) {
+            } else if (!XSecurity.authenticate(matKhau, Auth.user.getMatKhau(), Auth.user.getMuoi())) {
                 MsgBox.alert(this, "Mật khẩu không đúng!");
             } else if (!matKhauMoi.equals(matKhauMoi2)) {
                 MsgBox.alert(this, "Mật khẩu xác nhận không đúng!");
             } else {
-                Auth.user.setMatKhau(matKhauMoi);
+                String muoi = XSecurity.generateSalt(5);
+                Auth.user.setMuoi(muoi);
+                Auth.user.setMatKhau(XSecurity.getSecurePasswordSHA512(matKhauMoi, muoi));
                 dao.update(Auth.user);
                 MsgBox.alert(this, "Đổi mật khẩu thành công!");
             }

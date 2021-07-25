@@ -5,9 +5,10 @@ GO
 /****** Object:  Table NhanVien ******/
 CREATE TABLE NhanVien(
 	MaNV VARCHAR(50) NOT NULL,
-	MatKhau NVARCHAR(50) NOT NULL,
+	MatKhau CHAR(128) NOT NULL,
 	HoTen NVARCHAR(50) NOT NULL,
 	VaiTro BIT NOT NULL DEFAULT 0,
+	Muoi CHAR(5) NOT NULL,
 	PRIMARY KEY(MaNV)
 )
 
@@ -157,14 +158,15 @@ INSERT INTO ChuyenDe (MaCD, TenCD, HocPhi, ThoiLuong, Hinh, MoTa) VALUES
 (N'WEB03', N'Lập trình front-end với JavaScript và jQuery', 150, 60, N'HTCS.jpg', N'WEB03 - Lập trình front-end với JavaScript và jQuery'),
 (N'WEB04', N'Lập trình AngularJS', 250, 80, N'INMA.jpg', N'WEB04 - Lập trình AngularJS')
 
-INSERT INTO NhanVien (MaNV, MatKhau, HoTen, VaiTro) VALUES
-(N'LongNDH', N'songlong', N'Nguyễn Đình Hoàng Long', 0),
-(N'LongNDT', N'songlong', N'Nguyễn Đình Thiên Long', 0),
-(N'NghiemN', N'songlong', N'Nguyễn Nghiệm', 1),
-(N'NoPT', N'123456', N'Phạm Thị Nở', 0),
-(N'PheoNC', N'123456', N'Nguyễn Chí Phèo', 0),
-(N'TeoNV', N'songlong', N'Nguyễn Văn Tèo', 1),
-(N'ThaoLTH', N'songlong', N'Lê Thị Hương Thảo', 0)
+INSERT INTO NhanVien (MaNV, MatKhau, HoTen, VaiTro, Muoi) VALUES
+(N'admin', N'db873165ea5b97b4d6c13bf60e726f35ff972affa8a620f11e258e95cda73aa07e2acba32d3ea207d50a1c8dd05fee279b6768cc31f6941b2b68bfd38cec4291', N'admin', 0, N'^!^AF'),
+(N'LongNDH', N'1185ff44fb22cadfc09270a0bbb1d6b30308025ca00d88c0a9a54a0d4c42ebe291deafdf9e464faab041009be22ae354eb887f7a8e31cf1ad7b7d145bb484993', N'Nguyễn Đình Hoàng Long', 0, N'65vaa'),
+(N'LongNDT', N'ca1651a76e2e91e3945c4c4d6f03c72d01b3919b169b26c002452e54838cfdc80489d044e67ce5c1232a59531d6555360a6278a5605ed58927c94eddc2cb00e1', N'Nguyễn Đình Thiên Long', 0, N'12bcs'),
+(N'NoPT', N'72d9bd2381472b46143ed527c821a7978ec783e00b1c7a2d8a12ab47855d3e3bff9b2063fc948d13322bd605a36b02707323f8140e59d781b6f66a6482274313', N'Phạm Thị Nở', 0, N'45dda'),
+(N'NghiemN', N'07f2d89ead6c81fc7077bb9c8816a2e66dee2081f145c6ddc8968785a1d7e1e7b922f213b99706ca9c9fe9c8d414620cd705461557f939e1e0dfa041ec422fe2', N'Nguyễn Nghiệm', 1, N'dc3ad'),
+(N'PheoNC', N'313c3b58a898663b47389add70d8a9f58b72a6818d6688133f1a59c01161d44aec26d0283f3294c3c64759accc025f9e028e12a5c9ada46accd5b9d2f3a6fea1', N'Nguyễn Chí Phèo', 0, N'5g52a'),
+(N'TeoNV', N'772d067ca89f578f95321129598d93f77a1ec78cd129bcdf082e9e5e5eae94be518c270aae778c6767edbe091305627f7febd621d49b7fa9bb501257f4fceeca', N'Nguyễn Văn Tèo', 1, N'DglSx'),
+(N'ThaoLTH', N'8639f05cd87621c1c646567ef8ca5ec0827726537170a4315b963571a0ae33cf72788b51e713e2b26936565877b9b7a1b4b754ec3b8e9218fc6562848e54ab35', N'Lê Thị Hương Thảo', 0, N'24aax')
 SET IDENTITY_INSERT KhoaHoc ON
 
 INSERT INTO KhoaHoc (MaKH, MaCD, HocPhi, ThoiLuong, NgayKG, GhiChu, MaNV, NgayTao) VALUES

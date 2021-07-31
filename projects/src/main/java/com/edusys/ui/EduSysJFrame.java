@@ -3,12 +3,14 @@ package com.edusys.ui;
 import com.edusys.utils.Auth;
 import com.edusys.utils.MsgBox;
 import com.edusys.utils.XImage;
+import com.formdev.flatlaf.FlatIntelliJLaf;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.Timer;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -491,6 +493,7 @@ public class EduSysJFrame extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        /*
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -507,10 +510,19 @@ public class EduSysJFrame extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(EduSysJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        */
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        try {
+            javax.swing.UIManager.setLookAndFeel(new FlatIntelliJLaf());
+            javax.swing.UIManager.put("Table.showHorizontalLines", true);
+            javax.swing.UIManager.put("Table.showVerticalLines", true);
+            javax.swing.UIManager.put("TitlePane.unifiedBackground", true);
+        } catch (UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(EduSysJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

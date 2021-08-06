@@ -9,7 +9,7 @@ import com.edusys.dao.NhanVienDAO;
 import com.edusys.entity.NhanVien;
 import com.edusys.utils.Auth;
 import com.edusys.utils.MsgBox;
-import com.edusys.utils.XSecurity;
+import com.edusys.utils.XSecurity_PBKDF2;
 
 /**
  *
@@ -112,6 +112,9 @@ public class DangNhapJDialog extends javax.swing.JDialog {
                                 .addGap(179, 179, 179)))
                         .addContainerGap())))
         );
+
+        pnlFormLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnDangNhap, btnKetThuc});
+
         pnlFormLayout.setVerticalGroup(
             pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFormLayout.createSequentialGroup()
@@ -123,7 +126,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
                 .addComponent(lblMatKhau)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDangNhap)
                     .addComponent(btnKetThuc))
@@ -206,13 +209,16 @@ public class DangNhapJDialog extends javax.swing.JDialog {
     }
 
     void dangNhap() {
-        if (isValidated()) {
+        if (!isValidated()) {
+            return;
+        }
+        try {
             NhanVien nv = dao.selectById(txtMaNV.getText());
             String matKhau = new String(txtMatKhau.getPassword());
             if (nv == null) {
                 MsgBox.alert(this, "Tên đăng nhập không tồn tại!");
                 txtMaNV.requestFocus();
-            } else if (!XSecurity.authenticate(matKhau, nv.getMatKhau(), nv.getMuoi())) {
+            } else if (!XSecurity_PBKDF2.validatePassword(matKhau, nv.getMatKhau(), nv.getMuoi())) {
                 MsgBox.alert(this, "Sai mật khẩu!");
                 txtMaNV.requestFocus();
             } else {
@@ -220,6 +226,9 @@ public class DangNhapJDialog extends javax.swing.JDialog {
                 mainFrame.setVisible(true);
                 this.dispose();
             }
+        } catch (Exception e) {
+            MsgBox.alert(this, "Đăng nhập không thành công!");
+            e.printStackTrace();
         }
     }
 

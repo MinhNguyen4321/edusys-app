@@ -8,7 +8,7 @@ package com.edusys.ui;
 import com.edusys.dao.NhanVienDAO;
 import com.edusys.utils.Auth;
 import com.edusys.utils.MsgBox;
-import com.edusys.utils.XSecurity;
+import com.edusys.utils.XSecurity_PBKDF2;
 
 /**
  *
@@ -197,25 +197,31 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
     NhanVienDAO dao = new NhanVienDAO();
 
     private void doiMatKhau() {
-        if (isValidated()) {
+        if (!isValidated()) {
+            return;
+        }
+        try {
             String maNV = txtMaNV.getText();
             String matKhau = new String(txtMatKhau.getPassword());
             String matKhauMoi = new String(txtMatKhauMoi.getPassword());
             String matKhauMoi2 = new String(txtMatKhauMoi2.getPassword());
-
+            
             if (!maNV.equals(Auth.user.getMaNV())) {
                 MsgBox.alert(this, "Tên đăng nhập không tồn tại!");
-            } else if (!XSecurity.authenticate(matKhau, Auth.user.getMatKhau(), Auth.user.getMuoi())) {
+            } else if (!XSecurity_PBKDF2.validatePassword(matKhau, Auth.user.getMatKhau(), Auth.user.getMuoi())) {
                 MsgBox.alert(this, "Mật khẩu không đúng!");
             } else if (!matKhauMoi.equals(matKhauMoi2)) {
                 MsgBox.alert(this, "Mật khẩu xác nhận không đúng!");
             } else {
-                String muoi = XSecurity.generateSalt(5);
+                byte[] muoi = XSecurity_PBKDF2.getSalt();
                 Auth.user.setMuoi(muoi);
-                Auth.user.setMatKhau(XSecurity.getSecurePasswordSHA512(matKhauMoi, muoi));
+                Auth.user.setMatKhau(XSecurity_PBKDF2.generateStringPasswordHash(matKhauMoi, muoi));
                 dao.update(Auth.user);
                 MsgBox.alert(this, "Đổi mật khẩu thành công!");
             }
+        } catch (Exception e) {
+            MsgBox.alert(this, "Đổi mật khẩu không thành công!");
+            e.printStackTrace();
         }
     }
 

@@ -9,48 +9,25 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.Random;
 
 /**
  *
  * @author MinhNH
  */
-public class XSecurity {
+public class XSecurity_SHA512 {
 
-    public static String getSalt() throws NoSuchAlgorithmException {
-        SecureRandom sr = new SecureRandom();
+    public static byte [] getSalt() throws NoSuchAlgorithmException {
+        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
         byte[] salt = new byte[16];
         sr.nextBytes(salt);
-        return new String(salt, StandardCharsets.UTF_8);
+        return salt;
     }
 
-    public static String generateSalt(int lenght) {
-        String abcCapitals = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        String abcLowerCase = "abcdefghijklmnopqrstuvwxyz";
-        String numbers = "01234567890123456789";
-        String characters = "!@#$%^&*!@#$%%^^&*";
-
-        String total = abcCapitals + abcLowerCase + numbers + characters;
-
-        StringBuilder sb = new StringBuilder();
-
-        char letters[] = new char[lenght];
-        for (int i = 0; i < lenght; i++) {
-            Random r = new Random();
-            char letter = total.charAt(r.nextInt(total.length()));
-            letters[i] = letter;
-        }
-        
-        sb.append(letters);
-
-        return sb.toString();
-    }
-
-    public static String getSecurePasswordSHA512(String password, String salt) {
+    public static String getSecurePasswordSHA512(String password, byte [] salt) {
         String generatedPassword = null;
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-512");
-            md.update(salt.getBytes(StandardCharsets.UTF_8));
+            md.update(salt);
             byte[] bytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < bytes.length; i++) {
@@ -63,7 +40,7 @@ public class XSecurity {
         return generatedPassword;
     }
     
-    public static boolean authenticate(String passwordInput, String passwordDB, String salt){
+    public static boolean authenticate(String passwordInput, String passwordDB, byte [] salt){
         String password = getSecurePasswordSHA512(passwordInput, salt);
         return password.equals(passwordDB);
     }

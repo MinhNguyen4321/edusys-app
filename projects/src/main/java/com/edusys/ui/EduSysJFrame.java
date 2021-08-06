@@ -183,7 +183,7 @@ public class EduSysJFrame extends javax.swing.JFrame {
         pnlNoiDung.setLayout(pnlNoiDungLayout);
         pnlNoiDungLayout.setHorizontalGroup(
             pnlNoiDungLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblNoiDung, javax.swing.GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE)
+            .addComponent(lblNoiDung, javax.swing.GroupLayout.DEFAULT_SIZE, 932, Short.MAX_VALUE)
         );
         pnlNoiDungLayout.setVerticalGroup(
             pnlNoiDungLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

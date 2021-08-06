@@ -9,7 +9,9 @@ import com.edusys.dao.NhanVienDAO;
 import com.edusys.entity.NhanVien;
 import com.edusys.utils.Auth;
 import com.edusys.utils.MsgBox;
-import com.edusys.utils.XSecurity;
+import com.edusys.utils.XSecurity_PBKDF2;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -433,8 +435,11 @@ public class NhanVienJDialog extends javax.swing.JDialog {
 
     void init() {
         setLocationRelativeTo(null);
+        dao = new NhanVienDAO();
 
-        this.dao = new NhanVienDAO();
+        Auth.user = dao.selectById("TeoNV");
+        
+        tblNhanVien.removeColumn(tblNhanVien.getColumnModel().getColumn(1));
         this.fillTable();
         this.updateStatus();
     }
@@ -453,16 +458,17 @@ public class NhanVienJDialog extends javax.swing.JDialog {
             }
         } catch (Exception e) {
             MsgBox.alert(this, "Lỗi truy vấn dữ liệu!");
+            e.printStackTrace();
         }
     }
 
-    NhanVien getForm() {
+    NhanVien getForm() throws NoSuchAlgorithmException, InvalidKeySpecException {
         NhanVien nv = new NhanVien();
-        String muoi = XSecurity.generateSalt(5);
-        String matKhau = new String(txtMatKhau.getPassword()).trim();
+        byte[] muoi = XSecurity_PBKDF2.getSalt();
+        String matKhau = new String(txtMatKhau.getPassword());
         nv.setMaNV(txtMaNV.getText().trim());
         nv.setHoTen(capitalizeWord(txtHoTen.getText()));
-        nv.setMatKhau(XSecurity.getSecurePasswordSHA512(matKhau, muoi));
+        nv.setMatKhau(XSecurity_PBKDF2.generateStringPasswordHash(matKhau, muoi));
         nv.setVaiTro(rdoTruongPhong.isSelected());
         nv.setMuoi(muoi);
         return nv;
@@ -497,18 +503,20 @@ public class NhanVienJDialog extends javax.swing.JDialog {
             MsgBox.alert(this, "Bạn không có quyền xoá nhân viên!");
             return;
         }
-        
-        if (isValidated()) {
+
+        if (!isValidated()) {
+            return;
+        }
+
+        try {
             NhanVien nv = getForm();
-            try {
-                dao.insert(nv);
-                this.fillTable();
-                this.clearForm();
-                MsgBox.alert(this, "Thêm mới thành công!");
-            } catch (Exception e) {
-                MsgBox.alert(this, "Thêm mới thất bại!");
-                e.printStackTrace();
-            }
+            dao.insert(nv);
+            this.fillTable();
+            this.clearForm();
+            MsgBox.alert(this, "Thêm mới thành công!");
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            MsgBox.alert(this, "Thêm mới thất bại!");
+            e.printStackTrace();
         }
     }
 
@@ -517,18 +525,19 @@ public class NhanVienJDialog extends javax.swing.JDialog {
             MsgBox.alert(this, "Bạn không có quyền xoá nhân viên!");
             return;
         }
-        
-        if (isValidated()) {
+
+        if (!isValidated()) {
+            return;
+        }
+        try {
             NhanVien nv = getForm();
-            try {
-                dao.update(nv);
-                this.fillTable();
-                this.updateStatus();
-                MsgBox.alert(this, "Cập nhật thành công!");
-            } catch (Exception e) {
-                MsgBox.alert(this, "Cập nhật thất bại!");
-                e.printStackTrace();
-            }
+            dao.update(nv);
+            this.fillTable();
+            this.updateStatus();
+            MsgBox.alert(this, "Cập nhật thành công!");
+        } catch (Exception e) {
+            MsgBox.alert(this, "Cập nhật thất bại!");
+            e.printStackTrace();
         }
     }
 
@@ -537,7 +546,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
             MsgBox.alert(this, "Bạn không có quyền xoá nhân viên!");
             return;
         }
-        
+
         String maNV = txtMaNV.getText();
         if (maNV.equals(Auth.user.getMaNV())) {
             MsgBox.alert(this, "Không thể xoá tài khoản đang đăng nhập!");
@@ -602,7 +611,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
         if (str == null || str.length() == 0) {
             return str;
         }
-        str.toLowerCase();
+        str = str.toLowerCase();
         str = str.replaceAll("à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ", "a");
         str = str.replaceAll("è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ", "e");
         str = str.replaceAll("ì|í|ị|ỉ|ĩ", "i");
@@ -634,7 +643,6 @@ public class NhanVienJDialog extends javax.swing.JDialog {
         String hoTen = txtHoTen.getText();
         char[] matKhau1 = txtMatKhau.getPassword();
         char[] matKhau2 = txtMatKhau2.getPassword();
-
         if (maNV.length() == 0) {
             MsgBox.alert(this, "Chưa nhập mã nhân viên!");
             txtMaNV.requestFocus();

@@ -67,7 +67,7 @@ public class NhanVienDAO extends EduSysDAO<NhanVien, String> {
                     entity.setMatKhau(rs.getString("MatKhau"));
                     entity.setHoTen(rs.getString("HoTen"));
                     entity.setVaiTro(rs.getBoolean("VaiTro"));
-                    entity.setMuoi(rs.getString("Muoi"));
+                    entity.setMuoi(rs.getBytes("Muoi"));
                     list.add(entity);
                 }
             } catch (SQLException e) {

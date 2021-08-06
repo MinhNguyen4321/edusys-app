@@ -9,17 +9,21 @@ public class NhanVien {
     private String matKhau;
     private String hoTen;
     private boolean vaiTro = false;
-    private String muoi;
+    private byte [] muoi;
 
     public NhanVien() {
     }
 
-    public NhanVien(String maNV, String matKhau, String hoTen, boolean vaiTro, String muoi) {
+    public NhanVien(String maNV, String matKhau, String hoTen, byte[] muoi) {
         this.maNV = maNV;
         this.matKhau = matKhau;
         this.hoTen = hoTen;
-        this.vaiTro = vaiTro;
         this.muoi = muoi;
+    }
+    
+    @Override
+    public String toString(){
+        return this.getHoTen();
     }
 
     public String getMaNV() {
@@ -53,17 +57,12 @@ public class NhanVien {
     public void setVaiTro(boolean vaiTro) {
         this.vaiTro = vaiTro;
     }
-    
-    @Override
-    public String toString(){
-        return this.getHoTen();
-    }
 
-    public String getMuoi() {
+    public byte[] getMuoi() {
         return muoi;
     }
 
-    public void setMuoi(String muoi) {
+    public void setMuoi(byte[] muoi) {
         this.muoi = muoi;
     }
 }

@@ -212,13 +212,15 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         if (!isValidated()) {
             return;
         }
+        
         try {
             NhanVien nv = dao.selectById(txtMaNV.getText());
             String matKhau = new String(txtMatKhau.getPassword());
+            System.out.println(XSecurity_PBKDF2.generateStringPasswordHash(matKhau, nv.getMuoi()));
             if (nv == null) {
                 MsgBox.alert(this, "Tên đăng nhập không tồn tại!");
                 txtMaNV.requestFocus();
-            } else if (!XSecurity_PBKDF2.validatePassword(matKhau, nv.getMatKhau(), nv.getMuoi())) {
+            } else if (XSecurity_PBKDF2.validatePassword(matKhau, nv.getMatKhau(), nv.getMuoi())) {
                 MsgBox.alert(this, "Sai mật khẩu!");
                 txtMaNV.requestFocus();
             } else {
